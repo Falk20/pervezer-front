@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 
 import firebase from "firebase/app";
+import i18n from "./i18n";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCzFwWDuLmHjieZ3M5kyGtMPCQ6zepBLMQ",
@@ -12,7 +13,7 @@ const firebaseConfig = {
   projectId: "pervezer-front",
   storageBucket: "pervezer-front.appspot.com",
   messagingSenderId: "987643677881",
-  appId: "1:987643677881:web:c377f4265b55cb8efcdf68",
+  appId: "1:987643677881:web:c377f4265b55cb8efcdf68"
 };
 
 // Initialize Firebase
@@ -23,5 +24,6 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  i18n,
+  render: h => h(App)
 }).$mount("#app");
