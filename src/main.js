@@ -5,6 +5,7 @@ import store from "./store";
 
 import firebase from "firebase/app";
 import i18n from "./i18n";
+import vuetify from "./plugins/vuetify";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCzFwWDuLmHjieZ3M5kyGtMPCQ6zepBLMQ",
@@ -25,5 +26,6 @@ new Vue({
   router,
   store,
   i18n,
+  vuetify,
   render: h => h(App)
 }).$mount("#app");
