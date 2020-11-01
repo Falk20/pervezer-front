@@ -4,7 +4,7 @@ import Home from "../views/Home.vue";
 import store from "../store";
 
 const ifNotAuthenticated = (to, from, next) => {
-  if (!store.getters.isAuthenticated) {
+  if (!store.state.isAuthenticated) {
     next();
     return;
   }
@@ -12,7 +12,7 @@ const ifNotAuthenticated = (to, from, next) => {
 };
 
 const ifAuthenticated = (to, from, next) => {
-  if (store.getters.isAuthenticated) {
+  if (store.state.isAuthenticated) {
     next();
     return;
   }
