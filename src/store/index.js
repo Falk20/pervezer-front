@@ -17,7 +17,6 @@ export default new Vuex.Store({
 
       if (payload) {
         Router.push({ name: "Home" });
-        console.log(Router);
       }
     },
   },
