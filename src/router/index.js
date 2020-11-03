@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import Client from "../views/Client.vue";
 import store from "../store";
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -26,6 +27,12 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/client",
+    name: "Client",
+    component: Client,
     beforeEnter: ifAuthenticated,
   },
   {

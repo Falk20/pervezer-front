@@ -2,27 +2,32 @@
   <v-app>
     <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <h1>Питстоп</h1>
       </div>
     </v-app-bar>
 
     <v-main>
+      <v-navigation-drawer v-model="drawer" absolute left>
+        <v-list nav dense>
+          <v-list-item-group
+            v-model="group"
+            active-class="grey--lighten-2 text--grey-4"
+          >
+            <v-list-item exact :to="{ name: 'Home' }">
+              <v-list-item-title>
+                Главная
+              </v-list-item-title>
+            </v-list-item>
+
+            <v-list-item exact :to="{ name: 'Client' }">
+              <v-list-item-title>
+                Клиент
+              </v-list-item-title>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -32,8 +37,11 @@
 export default {
   name: "App",
 
-  data: () => ({
-    //
-  })
+  data() {
+    return {
+      drawer: false,
+      group: null
+    };
+  }
 };
 </script>

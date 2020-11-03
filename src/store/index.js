@@ -8,7 +8,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isAuthenticated: false,
+    isAuthenticated: true,
   },
   getters: {},
   mutations: {
