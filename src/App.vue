@@ -10,19 +10,15 @@
     <v-main>
       <v-navigation-drawer v-model="drawer" absolute left>
         <v-list nav dense>
-          <v-list-item-group
-            v-model="group"
-            active-class="grey--lighten-2 text--grey-4"
-          >
-            <v-list-item exact :to="{ name: 'Home' }">
+          <v-list-item-group active-class="grey--lighten-2 text--grey-4">
+            <v-list-item
+              v-for="(item, i) in menuItems"
+              :key="i"
+              exact
+              :to="{ name: item.routeName }"
+            >
               <v-list-item-title>
-                Главная
-              </v-list-item-title>
-            </v-list-item>
-
-            <v-list-item exact :to="{ name: 'Client' }">
-              <v-list-item-title>
-                Клиент
+                {{ item.label }}
               </v-list-item-title>
             </v-list-item>
           </v-list-item-group>
@@ -40,7 +36,17 @@ export default {
   data() {
     return {
       drawer: false,
-      group: null
+
+      menuItems: [
+        {
+          routeName: "Home",
+          label: "Главная"
+        },
+        {
+          routeName: "Client",
+          label: "Клиент"
+        }
+      ]
     };
   }
 };
