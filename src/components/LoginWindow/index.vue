@@ -51,17 +51,17 @@ export default {
       show: false,
       inputs: {
         email: "",
-        password: "",
+        password: ""
       },
 
       rules: {
-        required: (value) => !!value || "Required.",
-        min: (v) => v.length >= 8 || "Min 8 characters",
-        email: (value) => {
+        required: value => !!value || "Required.",
+        min: v => v.length >= 8 || "Min 8 characters",
+        email: value => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
-        },
-      },
+        }
+      }
     };
   },
 
@@ -76,12 +76,16 @@ export default {
       this.validate();
 
       if (this.valid) {
-        const { data: result } = await Axios.post(AUTH, this.inputs);
+        const {
+          data: { result }
+        } = await Axios.post(AUTH, this.inputs);
 
-        this[SET_IS_AUTHENTICATED](result);
+        if (result === "success") {
+          this[SET_IS_AUTHENTICATED](true);
+        }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
