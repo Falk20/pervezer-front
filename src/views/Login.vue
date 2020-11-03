@@ -17,4 +17,7 @@ export default {
 </script>
 
 <style lang="scss">
+.fill-height {
+  height: 100%;
+}
 </style>
