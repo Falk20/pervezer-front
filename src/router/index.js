@@ -34,6 +34,35 @@ const routes = [
     name: "Client",
     component: Client,
     beforeEnter: ifAuthenticated,
+<<<<<<< Updated upstream
+=======
+    children: [
+      {
+        path: "",
+        component: () => import("@/components/ClientsTable"),
+      },
+      {
+        path: "profiles",
+        component: () => import("@/components/ProfilesTable"),
+      },
+      {
+        path: "guest",
+      },
+      {
+        path: "discounts",
+        component: () => import("@/components/DiscountsTable"),
+      },
+      {
+        path: "status",
+      },
+      {
+        path: "franchisee",
+      },
+      {
+        path: "sms",
+      },
+    ],
+>>>>>>> Stashed changes
   },
   {
     path: "/login",
