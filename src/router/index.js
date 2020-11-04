@@ -33,7 +33,32 @@ const routes = [
     path: "/client",
     name: "Client",
     component: Client,
+
     beforeEnter: ifAuthenticated,
+    children: [
+      {
+        path: "",
+        component: () => import("@/components/ClientsTable"),
+      },
+      {
+        path: "profile",
+      },
+      {
+        path: "guest",
+      },
+      {
+        path: "sale",
+      },
+      {
+        path: "status",
+      },
+      {
+        path: "franchisee",
+      },
+      {
+        path: "sms",
+      },
+    ],
   },
   {
     path: "/login",
