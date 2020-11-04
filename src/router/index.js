@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Client from "../views/Client.vue";
+import Clients from "../views/Client/Clients.vue";
+import Profiles from "../views/Client/Profiles.vue";
 import store from "../store";
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -71,6 +73,18 @@ const routes = [
       import(/* webpackChunkName: "login" */ "../views/Login.vue"),
     beforeEnter: ifNotAuthenticated,
   },
+  {
+    path: "/client/profiles",
+    name: "Profiles",
+    component: Profiles,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/client/clients",
+    name: "Clients",
+    component: Clients,
+    beforeEnter: ifAuthenticated,
+  }
 ];
 
 const router = new VueRouter({

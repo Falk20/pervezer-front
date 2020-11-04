@@ -1,11 +1,27 @@
 <template>
-  <div class="d-flex flex-column fill-height align-center">
-    <h1>Клиенты</h1>
-  </div>
+  <v-app>
+    <v-main>
+      <div class="d-flex flex-column fill-height align-center">
+        <h1>Клиенты</h1>
+        <v-btn-toggle>
+          <v-btn
+            v-for="(item, i) in menuItems"
+                  :key="i"
+                  exact
+                  :to="{ name: item.routeName }"
+          >
+          {{item.label }}
+          </v-btn>
+        </v-btn-toggle>
+      </div>
+      <router-view />
+      </v-main>
+  </v-app>
 </template>
 
 <script>
 export default {
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   name: "Home"
 =======
@@ -59,3 +75,23 @@ export default {
 >>>>>>> Stashed changes
 };
 </script>
+=======
+  name: "Client",
+  data() {
+    return {
+      menuItems: [
+        {
+          routeName: "Clients",
+          label: "Клиенты"
+        },
+        {
+          routeName: "Profiles",
+          label: "Профили"
+        },
+      ]
+    }
+  },
+  
+}
+</script>
+>>>>>>> Stashed changes
