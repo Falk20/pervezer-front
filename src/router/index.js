@@ -2,8 +2,12 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Client from "../views/Client.vue";
+<<<<<<< Updated upstream
 import Clients from "../views/Client/Clients.vue";
 import Profiles from "../views/Client/Profiles.vue";
+=======
+import ClientSettings from "../views/ClientSettings.vue";
+>>>>>>> Stashed changes
 import store from "../store";
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -61,7 +65,40 @@ const routes = [
         path: "franchisee",
       },
       {
-        path: "sms",
+        path: ":id",
+        name: "ClientSettings",
+        component: ClientSettings,
+        children:[
+          {
+            path: "settings",
+            component: () => import("@/components/Client/ClientSettings"),
+          },
+          {
+            path: "offices",
+            component: () => import("@/components/Client/ClientOffices"),
+          },
+          {
+            path: "garage",
+            component: () => import("@/components/Client/ClientGarage"),
+          },
+          {
+            path: "cart",
+            component: () => import("@/components/Client/ClientCart"),
+          },
+          {
+            path: "addresses",
+            component: () => import("@/components/Client/ClientAddresses"),
+          },
+          {
+            path: "rekvizites",
+            component: () => import("@/components/Client/ClientRekvizites"),
+          },
+          
+          {
+            path: "contracts",
+            component: () => import("@/components/Client/ClientContracts"),
+          },
+        ]
       },
     ],
 >>>>>>> Stashed changes

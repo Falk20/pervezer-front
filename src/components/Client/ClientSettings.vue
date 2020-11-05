@@ -12,10 +12,6 @@
         show-select
         class="elevation-1"
       >
-<<<<<<< Updated upstream
-        <template v-slot:item.email="{ item }">
-          <a :href="`mailto:${item.email}`">{{ item.email }}</a>
-=======
         <template v-slot:item.organization>
           -
         </template>
@@ -79,7 +75,6 @@
               </v-card-text>
             </v-card>
           </v-dialog>
->>>>>>> Stashed changes
         </template>
       </v-data-table>
     </template>
@@ -98,10 +93,15 @@ export default {
       isLoad: true,
       isErr: false,
       clients: null,
+      dialog: false,
+      openedItem: null,
+      openedIndex: -1,
       selected: [],
+      clientid: this.$parent.data,
       tableHeaders: [
         {
-          text: "Код клиента"
+          text: "Код клиента",
+          value: "id"
         },
         {
           text: "Профиль",
@@ -136,7 +136,7 @@ export default {
         },
         {
           text: "Регистрация",
-          value: "BirthDate"
+          value: "birthDate"
         },
         {
           text: "Комментарий менеджера"
@@ -145,11 +145,12 @@ export default {
           text: "Теги"
         },
         {
-          text: "Карточка клиента"
+          text: "Карточка клиента",
+          value: "clientCard",
+          align: "center"
         },
         {
-          text: "Ред.",
-          value: "clientCard",
+          text: "Ред."
         },
         {
           text: "Цены"
@@ -165,8 +166,6 @@ export default {
   },
 
   methods: {
-<<<<<<< Updated upstream
-=======
     openClientInfo(client) {
       this.openedIndex = this.clients.indexOf(client);
       this.openedItem = Object.assign({}, client);
@@ -179,10 +178,6 @@ export default {
         this.openedIndex = -1;
       });
     },
-    openClientPage(client) {
-      this.openedItem = Object.assign({}, client);
-      this.$router.push();
-    },
     getCurrentDate(date) {
       return new Date(date).toLocaleString("ru", {
         day: "numeric",
@@ -190,7 +185,6 @@ export default {
         year: "numeric"
       });
     },
->>>>>>> Stashed changes
     async getClients() {
       try {
         const { data: clients } = await Axios.get(GET_CLIENTS);
@@ -206,6 +200,12 @@ export default {
 
   created() {
     this.getClients();
+  },
+
+  watch: {
+    dialog(val) {
+      val || this.closeClientInfo();
+    }
   }
 };
 </script>

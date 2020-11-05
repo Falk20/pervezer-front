@@ -3,6 +3,7 @@
     <p v-if="isLoad">Load...</p>
     <p v-else-if="isErr">Error</p>
     <template v-else>
+<<<<<<< Updated upstream
       <v-row>
         <v-container>
           <p>Профили</p>
@@ -18,6 +19,8 @@
             </v-radio>
         </v-radio-group>
       </v-container>
+=======
+>>>>>>> Stashed changes
         <v-data-table
             v-model="selected"
             :headers="tableHeaders"
@@ -27,7 +30,10 @@
             show-select
             class="elevation-1">
         </v-data-table>
+<<<<<<< Updated upstream
       </v-row>
+=======
+>>>>>>> Stashed changes
     </template>
   </div>
 </template>
@@ -80,9 +86,12 @@ export default {
   }
 };
 </script>
+<<<<<<< Updated upstream
 
 <style scoped>
     .elevation-1{
         width:60%;
     }
 </style>
+=======
+>>>>>>> Stashed changes

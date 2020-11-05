@@ -3,6 +3,7 @@
     <p v-if="isLoad">Load...</p>
     <p v-else-if="isErr">Error</p>
     <template v-else>
+<<<<<<< Updated upstream
       <v-row>
         <v-row class="rower">
             <v-col>
@@ -48,6 +49,8 @@
                     </v-select>
             </v-col>
         </v-row>
+=======
+>>>>>>> Stashed changes
         <v-data-table
             v-model="selected"
             :headers="tableHeaders"
@@ -57,7 +60,10 @@
             show-select
             class="elevation-1">
         </v-data-table>
+<<<<<<< Updated upstream
       </v-row>
+=======
+>>>>>>> Stashed changes
     </template>
   </div>
 </template>
@@ -130,6 +136,7 @@ export default {
   }
 };
 </script>
+<<<<<<< Updated upstream
 
 <style scoped>
     .elevation-1{
@@ -139,3 +146,5 @@ export default {
         margin: 5px;
     }
 </style>
+=======
+>>>>>>> Stashed changes
