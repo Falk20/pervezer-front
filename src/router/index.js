@@ -2,12 +2,12 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Client from "../views/Client.vue";
-<<<<<<< Updated upstream
+
 import Clients from "../views/Client/Clients.vue";
 import Profiles from "../views/Client/Profiles.vue";
-=======
+
 import ClientSettings from "../views/ClientSettings.vue";
->>>>>>> Stashed changes
+
 import store from "../store";
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -40,8 +40,7 @@ const routes = [
     name: "Client",
     component: Client,
     beforeEnter: ifAuthenticated,
-<<<<<<< Updated upstream
-=======
+
     children: [
       {
         path: "",
@@ -101,7 +100,6 @@ const routes = [
         ]
       },
     ],
->>>>>>> Stashed changes
   },
   {
     path: "/login",
