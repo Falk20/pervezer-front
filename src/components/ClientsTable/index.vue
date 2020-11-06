@@ -58,7 +58,7 @@ export default {
       isErr: false,
       clients: null,
       dialog: false,
-      openedItem: null,
+      openedItem: {},
       openedIndex: -1,
       selected: [],
       tableHeaders: [
