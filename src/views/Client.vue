@@ -22,11 +22,11 @@ export default {
       tabs: [
         {
           label: "Клиенты",
-          to: "/client"
+          to: "/client/"
         },
         {
           label: "Профили",
-          to: "/client/profile"
+          to: "/client/profiles"
         },
         {
           label: "Гость",
@@ -34,7 +34,7 @@ export default {
         },
         {
           label: "Скидки на заказ",
-          to: "/client/sale"
+          to: "/client/discounts"
         },
         {
           label: "Статусы",

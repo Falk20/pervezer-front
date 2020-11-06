@@ -12,7 +12,7 @@
         show-select
         class="elevation-1"
       >
-        <template v-slot:top>
+        <template v-slot:top v-if="openedIndex !== -1">
           <v-dialog v-model="dialog" max-width="500px">
             <v-card>
               <v-card-title>
@@ -38,6 +38,11 @@
         <template v-slot:item.clientCard="{ item }">
           <v-icon small class="mr-2" @click="openClientInfo(item)">
             mdi-account-details
+          </v-icon>
+        </template>
+        <template v-slot:item.clientCarder="{ item }">
+          <v-icon small class="mr-2" @click="shower(item)">
+            mdi-account-key
           </v-icon>
         </template>
       </v-data-table>
@@ -113,7 +118,8 @@ export default {
           align: "center"
         },
         {
-          text: "Ред."
+          text: "Ред.",
+          value: "clientCarder",
         },
         {
           text: "Цены"
@@ -158,6 +164,15 @@ export default {
       } finally {
         this.isLoad = false;
       }
+    },
+    shower(data){
+      console.log(data.id)
+      this.$router.push({
+        name: "ClientDetails",
+        params: {
+            clientId: data.id // or anything you want
+        }
+      }) 
     }
   },
 

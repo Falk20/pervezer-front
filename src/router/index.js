@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Client from "../views/Client.vue";
+import ClientDetails from "../views/ClientDetails.vue";
 import store from "../store";
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -41,13 +42,15 @@ const routes = [
         component: () => import("@/components/ClientsTable"),
       },
       {
-        path: "profile",
+        path: "profiles",
+        component: () => import("@/components/ProfilesTable"),
       },
       {
         path: "guest",
       },
       {
-        path: "sale",
+        path: "discounts",
+        component: () => import("@/components/DiscountsTable"),
       },
       {
         path: "status",
@@ -59,6 +62,43 @@ const routes = [
         path: "sms",
       },
     ],
+  },
+  {
+    path: "/clientdetails",
+    name: "ClientDetails",
+    component: ClientDetails,
+    beforeEnter: ifAuthenticated,
+    children:[
+      {
+        path: "",
+        component: () => import("@/components/Client/ClientSettings"),
+      },
+      {
+        path: "offices",
+        component: () => import("@/components/Client/ClientOffices"),
+      },
+      {
+        path: "garage",
+        component: () => import("@/components/Client/ClientGarage"),
+      },
+      {
+        path: "cart",
+        component: () => import("@/components/Client/ClientCart"),
+      },
+      {
+        path: "addresses",
+        component: () => import("@/components/Client/ClientAddresses"),
+      },
+      {
+        path: "rekvizites",
+        component: () => import("@/components/Client/ClientRekvizites"),
+      },
+      
+      {
+        path: "contracts",
+        component: () => import("@/components/Client/ClientContracts"),
+      },
+    ]
   },
   {
     path: "/login",
