@@ -15,7 +15,7 @@
               v-for="(item, i) in menuItems"
               :key="i"
               exact
-              :to="{ name: item.routeName }"
+              :to="item.route"
             >
               <v-list-item-title>
                 {{ item.label }}
@@ -39,11 +39,11 @@ export default {
 
       menuItems: [
         {
-          routeName: "Home",
+          route: { name: "Home" },
           label: "Главная"
         },
         {
-          routeName: "Client",
+          route: { path: "/client" },
           label: "Клиент"
         }
       ]

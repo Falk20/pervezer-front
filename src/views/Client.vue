@@ -10,7 +10,7 @@
 import TabsMenu from "@/components/TabsMenu";
 
 export default {
-  name: "Client",
+  name: "client",
 
   components: {
     TabsMenu

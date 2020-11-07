@@ -1,0 +1,37 @@
+<template>
+  <div class="fill-height">
+    <TabsMenu v-model="tab" :tabs="tabs" />
+
+    <router-view />
+  </div>
+</template>
+
+<script>
+import TabsMenu from "@/components/TabsMenu";
+
+export default {
+  name: "client-detail",
+
+  components: {
+    TabsMenu
+  },
+
+  data() {
+    return {
+      tab: null,
+      tabs: [
+        {
+          label: "Общие настройки",
+          to: `/client-detail/${this.$route.params.clientID}`
+        }
+      ]
+    };
+  },
+
+  computed: {
+    tabsLabels() {
+      return this.tabs.map(tab => tab.label);
+    }
+  }
+};
+</script>

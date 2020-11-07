@@ -36,9 +36,18 @@
           {{ getCurrentDate(item.birthDate) }}
         </template>
         <template v-slot:item.clientCard="{ item }">
-          <v-icon small class="mr-2" @click="openClientInfo(item)">
-            mdi-account-details
-          </v-icon>
+          <v-btn icon @click="openClientInfo(item)">
+            <v-icon>
+              mdi-account-details
+            </v-icon>
+          </v-btn>
+        </template>
+        <template v-slot:item.clientEdit="{ item }">
+          <v-btn icon :to="`/client-detail/${item.id}`">
+            <v-icon>
+              mdi-account-edit
+            </v-icon>
+          </v-btn>
         </template>
       </v-data-table>
     </template>
@@ -113,7 +122,9 @@ export default {
           align: "center"
         },
         {
-          text: "Ред."
+          text: "Ред.",
+          value: "clientEdit",
+          align: "center"
         },
         {
           text: "Цены"
