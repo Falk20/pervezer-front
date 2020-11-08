@@ -27,7 +27,7 @@ import { GET_CLIENT_DETAILS } from "@/api";
 import SettingForm from "./SettingForm";
 
 export default {
-  name: "client-main-setting",
+  name: "client-details-setting",
 
   components: {
     SettingForm

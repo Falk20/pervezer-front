@@ -70,6 +70,10 @@ const routes = [
         path: "",
         component: () => import("@/components/ClientDetail/MainSetting"),
       },
+      {
+        path: "ips",
+        component: () => import("@/components/ClientDetail/Ips"),
+      },
     ],
   },
   {

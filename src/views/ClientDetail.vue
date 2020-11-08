@@ -23,6 +23,10 @@ export default {
         {
           label: "Общие настройки",
           to: `/client-detail/${this.$route.params.clientID}`
+        },
+        {
+          label: "IP-адреса",
+          to: `/client-detail/${this.$route.params.clientID}/ips`
         }
       ]
     };

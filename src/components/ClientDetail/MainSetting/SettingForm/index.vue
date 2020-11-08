@@ -60,7 +60,6 @@
       <v-row>
         <v-col>
           <ProfileSelect label="Профиль" v-model="editedSetting.profileId" />
-          <v-text-field label="Профиль" disabled />
         </v-col>
       </v-row>
 
