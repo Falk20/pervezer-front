@@ -59,6 +59,7 @@
 
       <v-row>
         <v-col>
+          <ProfileSelect label="Профиль" v-model="editedSetting.profileId" />
           <v-text-field label="Профиль" disabled />
         </v-col>
       </v-row>
@@ -203,12 +204,14 @@ import Axios from "axios";
 import { UPDATE_CLIENT_SETTING } from "@/api";
 
 import DatePicker from "./DatePicker";
+import ProfileSelect from "./ProfileSelect";
 
 export default {
   name: "client-setting-form",
 
   components: {
-    DatePicker
+    DatePicker,
+    ProfileSelect
   },
 
   props: ["clientSettings"],
