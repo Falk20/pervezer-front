@@ -10,7 +10,7 @@
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
         v-model="formattedDate"
-        label="Дата рождения"
+        :label="label"
         append-icon="mdi-calendar"
         readonly
         v-bind="attrs"
@@ -33,7 +33,7 @@
 export default {
   name: "form-date-picker",
 
-  props: ["value"],
+  props: ["value", "label"],
 
   data: () => ({
     menu: false
@@ -42,7 +42,7 @@ export default {
   computed: {
     date: {
       get() {
-        return this.value;
+        return this.value.substr(0, 10);
       },
       set(v) {
         this.$emit("input", v);
@@ -60,8 +60,11 @@ export default {
     formatDate(date) {
       if (!date) return null;
 
-      const [year, month, day] = date.split("-");
-      return `${day}.${month}.${year}`;
+      return new Date(date).toLocaleDateString("ru", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric"
+      });
     }
   },
 

@@ -9,22 +9,19 @@
       <v-row>
         <v-col>
           <v-text-field
-            v-model="editedSetting.fio"
-            :rules="[rules.required]"
-            label="ФИО"
-            required
-          />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <v-text-field
             v-model="editedSetting.clientId"
-            label="Код клиента"
+            label="Системный код клиента"
             disabled
           />
         </v-col>
       </v-row>
+
+      <v-row>
+        <v-col>
+          <v-text-field label="Организация" disabled />
+        </v-col>
+      </v-row>
+
       <v-row>
         <v-col>
           <v-text-field
@@ -35,6 +32,7 @@
           />
         </v-col>
       </v-row>
+
       <v-row>
         <v-col>
           <v-text-field
@@ -48,17 +46,37 @@
           />
         </v-col>
       </v-row>
+
       <v-row>
         <v-col>
-          <v-text-field label="Наценка" disabled />
+          <v-text-field
+            v-model="editedSetting.surCharge"
+            type="number"
+            label="Наценка, %"
+          />
         </v-col>
+      </v-row>
+
+      <v-row>
         <v-col>
           <v-text-field label="Профиль" disabled />
         </v-col>
       </v-row>
+
       <v-row>
         <v-col>
-          <DatePicker v-model="editedSetting.birthday" />
+          <v-text-field
+            v-model="editedSetting.fio"
+            :rules="[rules.required]"
+            label="ФИО"
+            required
+          />
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <DatePicker v-model="editedSetting.birthDate" label="Дата рождения" />
         </v-col>
         <v-col>
           <v-text-field
@@ -70,6 +88,71 @@
           />
         </v-col>
       </v-row>
+
+      <v-row>
+        <v-col>
+          <v-text-field
+            v-model="editedSetting.city"
+            :rules="[rules.required]"
+            label="Город"
+            required
+          />
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <v-switch
+            v-model="editedSetting.allowSMS"
+            label="Уведомления"
+            color="info"
+            hide-details
+          ></v-switch>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <v-text-field
+            v-model="editedSetting.status"
+            :rules="[rules.required]"
+            label="Статус"
+            required
+          />
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <DatePicker
+            v-model="editedSetting.registerDate"
+            label="Регистрация"
+          />
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <v-text-field
+            v-model="editedSetting.uRfacetype"
+            :rules="[rules.required]"
+            label="Тип юр. лица"
+            required
+          />
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <v-text-field
+            v-model="editedSetting.uRfacename"
+            :rules="[rules.required]"
+            label="Название юр. лица"
+            required
+          />
+        </v-col>
+      </v-row>
+
       <v-row>
         <v-col>
           <v-btn

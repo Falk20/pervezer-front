@@ -23,7 +23,7 @@
 
 <script>
 import Axios from "axios";
-import { GET_CLIENT_TO_UPDATE } from "@/api";
+import { GET_CLIENT_DETAILS } from "@/api";
 import SettingForm from "./SettingForm";
 
 export default {
@@ -51,7 +51,7 @@ export default {
   methods: {
     async getClientSettings() {
       try {
-        const { data: clientSettings } = await Axios.get(GET_CLIENT_TO_UPDATE, {
+        const { data: clientSettings } = await Axios.get(GET_CLIENT_DETAILS, {
           params: {
             id: this.clientID
           }
