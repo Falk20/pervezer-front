@@ -31,6 +31,10 @@ export default {
         {
           label: "Адреса",
           to: `/client-detail/${this.$route.params.clientID}/addresses`
+        },
+        {
+          label: "Офисы",
+          to: `/client-detail/${this.$route.params.clientID}/offices`
         }
       ]
     };

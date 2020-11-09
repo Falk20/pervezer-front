@@ -107,10 +107,6 @@ export default {
       });
     },
 
-    openCreateIpDialog() {
-      this.dialog = true;
-    },
-
     async removeIp(item) {
       try {
         const { status } = await Axios.post(REMOVE_IP, {

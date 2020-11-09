@@ -16,15 +16,15 @@
 
       <v-data-table
         :headers="tableHeaders"
-        :items="addresses"
+        :items="offices"
         item-key="id"
         :search="search"
       >
-        <template v-slot:no-data>Нет адресов</template>
-        <template v-slot:no-results>Нет таких адресов</template>
+        <template v-slot:no-data>Нет офисов</template>
+        <template v-slot:no-results>Нет таких офисов</template>
 
         <template v-slot:item.id="{ item }">
-          <v-btn color="red" dark @click="removeAddess(item)">
+          <v-btn color="red" dark @click="removeIp(item)">
             <v-icon dark>
               mdi-delete
             </v-icon>
@@ -37,12 +37,12 @@
           <template v-slot:activator="{ on, attrs }">
             <div class="text-center pt-2">
               <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-                Добавить адрес
+                Добавить офис
               </v-btn>
             </div>
           </template>
-          <CreateAddressForm
-            @create-address="addNewAddress"
+          <CreateOfficeForm
+            @create-office="addNewOffice"
             @close="dialog = false"
           />
         </v-dialog>
@@ -52,16 +52,16 @@
 </template>
 
 <script>
-import { GET_CLIENT_ADDRESSES, REMOVE_ADDRESS } from "@/api";
+import { GET_CLIENT_OFFICES, REMOVE_OFFICE } from "@/api";
 import Axios from "axios";
 
-import CreateAddressForm from "./CreateAddressForm";
+import CreateOfficeForm from "./CreateOfficeForm";
 
 export default {
-  name: "client-details-addresses",
+  name: "client-details-offices",
 
   components: {
-    CreateAddressForm
+    CreateOfficeForm
   },
 
   data() {
@@ -70,11 +70,11 @@ export default {
       isLoad: true,
       isErr: false,
       dialog: false,
-      addresses: null,
+      offices: null,
       tableHeaders: [
         {
-          text: "Адрес",
-          value: "address",
+          text: "Офис",
+          value: "name",
           width: "100%"
         },
         {
@@ -87,15 +87,15 @@ export default {
   },
 
   methods: {
-    async getAddresses() {
+    async getOffices() {
       try {
-        const { data: addresses } = await Axios.get(GET_CLIENT_ADDRESSES, {
+        const { data: offices } = await Axios.get(GET_CLIENT_OFFICES, {
           params: {
             id: this.$route.params.clientID
           }
         });
 
-        this.addresses = addresses;
+        this.offices = offices;
       } catch {
         this.isErr = true;
       } finally {
@@ -111,16 +111,20 @@ export default {
       });
     },
 
-    async removeAddess(item) {
+    openCreateIpDialog() {
+      this.dialog = true;
+    },
+
+    async removeIp(item) {
       try {
-        const { status } = await Axios.post(REMOVE_ADDRESS, {
-          addressId: item.id
+        const { status } = await Axios.post(REMOVE_OFFICE, {
+          officeId: item.id
         });
 
         if (status === 200) {
-          const itemIndex = this.addresses.indexOf(item);
+          const itemIndex = this.offices.indexOf(item);
 
-          this.addresses.splice(itemIndex, 1);
+          this.offices.splice(itemIndex, 1);
         } else {
           throw new Error();
         }
@@ -129,13 +133,13 @@ export default {
       }
     },
 
-    addNewAddress() {
-      this.getAddresses();
+    addNewOffice() {
+      this.getOffices();
     }
   },
 
   created() {
-    this.getAddresses();
+    this.getOffices();
   }
 };
 </script>
