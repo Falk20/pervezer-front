@@ -13,3 +13,6 @@ export const GET_PROFILES = addIP("Profile/get-profiles");
 export const GET_CLIENT_IPS = addIP("Client/get-client-ips");
 export const CREATE_IP = addIP("IP/create-ip");
 export const REMOVE_IP = addIP("IP/remove-ip");
+export const GET_CLIENT_ADDRESSES = addIP("Client/get-client-addresses");
+export const CREATE_ADDRESS = addIP("Address/create-address");
+export const REMOVE_ADDRESS = addIP("Address/remove-address");

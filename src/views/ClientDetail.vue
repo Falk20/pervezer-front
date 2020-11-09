@@ -27,6 +27,10 @@ export default {
         {
           label: "IP-адреса",
           to: `/client-detail/${this.$route.params.clientID}/ips`
+        },
+        {
+          label: "Адреса",
+          to: `/client-detail/${this.$route.params.clientID}/addresses`
         }
       ]
     };

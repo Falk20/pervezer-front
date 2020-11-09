@@ -30,7 +30,6 @@ const routes = [
   },
   {
     path: "/client",
-    name: "Client",
     component: () => import("@/views/Client"),
 
     beforeEnter: ifAuthenticated,
@@ -61,7 +60,6 @@ const routes = [
   },
   {
     path: "/client-detail/:clientID",
-    name: "ClientDetail",
     component: () => import("@/views/ClientDetail"),
 
     beforeEnter: ifAuthenticated,
@@ -73,6 +71,10 @@ const routes = [
       {
         path: "ips",
         component: () => import("@/components/ClientDetail/Ips"),
+      },
+      {
+        path: "addresses",
+        component: () => import("@/components/ClientDetail/Addresses"),
       },
     ],
   },

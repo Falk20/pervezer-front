@@ -2,22 +2,32 @@
   <div class="d-flex flex-column align-center">
     <p v-if="isLoad">Load...</p>
     <p v-else-if="isErr">Error</p>
-    <v-card v-else width="1024">
-      <v-data-table :headers="tableHeaders" :items="ips" item-key="id">
-        <template v-slot:no-data>Нет IP</template>
+    <v-card v-else width="400">
+      <v-card-title>
+        <v-text-field
+          v-model="search"
+          prepend-icon="mdi-magnify"
+          label="Поиск"
+          single-line
+          hide-details
+          clearable
+        />
+      </v-card-title>
 
-        <template v-slot:item.addingDate="{ item }">
-          {{ formatDate(item.addingDate) }}
-        </template>
-        <template v-slot:item.isAutomatedAdded="{ item }">
-          {{ item.isAutomatedAdded ? "Да" : "Нет" }}
-        </template>
+      <v-data-table
+        :headers="tableHeaders"
+        :items="addresses"
+        item-key="id"
+        :search="search"
+      >
+        <template v-slot:no-data>Нет адресов</template>
+        <template v-slot:no-results>Нет таких адресов</template>
+
         <template v-slot:item.id="{ item }">
           <v-btn color="red" dark @click="removeIp(item)">
             <v-icon dark>
               mdi-delete
             </v-icon>
-            Удалить
           </v-btn>
         </template>
       </v-data-table>
@@ -27,11 +37,14 @@
           <template v-slot:activator="{ on, attrs }">
             <div class="text-center pt-2">
               <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-                Добавить IP
+                Добавить адрес
               </v-btn>
             </div>
           </template>
-          <CreateIpForm @create-ip="addNewIp" @close="dialog = false" />
+          <CreateAddressForm
+            @create-address="addNewAddress"
+            @close="dialog = false"
+          />
         </v-dialog>
       </template>
     </v-card>
@@ -39,59 +52,50 @@
 </template>
 
 <script>
-import { GET_CLIENT_IPS, REMOVE_IP } from "@/api";
+import { GET_CLIENT_ADDRESSES, REMOVE_ADDRESS } from "@/api";
 import Axios from "axios";
 
-import CreateIpForm from "./CreateIpForm";
+import CreateAddressForm from "./CreateAddressForm";
 
 export default {
-  name: "client-details-ips",
+  name: "client-details-addresses",
 
   components: {
-    CreateIpForm
+    CreateAddressForm
   },
 
   data() {
     return {
+      search: "",
       isLoad: true,
       isErr: false,
       dialog: false,
-      ips: null,
+      addresses: null,
       tableHeaders: [
         {
-          text: "IP",
-          value: "ip"
-        },
-        {
-          text: "Дата добавления",
-          value: "addingDate"
-        },
-        {
-          text: "Дабавлено автоматически",
-          value: "isAutomatedAdded"
-        },
-        {
-          text: "Число сообщений",
-          value: "messageCount"
+          text: "Адрес",
+          value: "address",
+          width: "100%"
         },
         {
           text: "",
-          value: "id"
+          value: "id",
+          sortable: false
         }
       ]
     };
   },
 
   methods: {
-    async getIps() {
+    async getAddresses() {
       try {
-        const { data: ips } = await Axios.get(GET_CLIENT_IPS, {
+        const { data: addresses } = await Axios.get(GET_CLIENT_ADDRESSES, {
           params: {
             id: this.$route.params.clientID
           }
         });
 
-        this.ips = ips;
+        this.addresses = addresses;
       } catch {
         this.isErr = true;
       } finally {
@@ -113,14 +117,14 @@ export default {
 
     async removeIp(item) {
       try {
-        const { status } = await Axios.post(REMOVE_IP, {
-          id: item.id
+        const { status } = await Axios.post(REMOVE_ADDRESS, {
+          addressId: item.id
         });
 
         if (status === 200) {
-          const itemIndex = this.ips.indexOf(item);
+          const itemIndex = this.addresses.indexOf(item);
 
-          this.ips.splice(itemIndex, 1);
+          this.addresses.splice(itemIndex, 1);
         } else {
           throw new Error();
         }
@@ -129,13 +133,13 @@ export default {
       }
     },
 
-    addNewIp() {
-      this.getIps();
+    addNewAddress() {
+      this.getAddresses();
     }
   },
 
   created() {
-    this.getIps();
+    this.getAddresses();
   }
 };
 </script>
