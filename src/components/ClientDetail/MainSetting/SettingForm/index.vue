@@ -49,17 +49,18 @@
 
       <v-row>
         <v-col>
-          <v-text-field
-            v-model="editedSetting.surCharge"
-            type="number"
-            label="Наценка, %"
-          />
+          <ProfileSelect label="Профиль" v-model="editedSetting.profileId" />
         </v-col>
       </v-row>
 
       <v-row>
         <v-col>
-          <ProfileSelect label="Профиль" v-model="editedSetting.profileId" />
+          <v-text-field
+            v-model="editedSetting.surCharge"
+            type="number"
+            label="Наценка, %"
+            disabled
+          />
         </v-col>
       </v-row>
 
@@ -127,6 +128,7 @@
           <DatePicker
             v-model="editedSetting.registerDate"
             label="Регистрация"
+            disabled
           />
         </v-col>
       </v-row>

@@ -15,6 +15,7 @@
         readonly
         v-bind="attrs"
         v-on="on"
+        :disabled="disabled"
       ></v-text-field>
     </template>
     <v-date-picker
@@ -33,7 +34,7 @@
 export default {
   name: "form-date-picker",
 
-  props: ["value", "label"],
+  props: ["value", "label", "disabled"],
 
   data: () => ({
     menu: false
