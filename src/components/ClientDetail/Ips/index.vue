@@ -76,7 +76,9 @@ export default {
         },
         {
           text: "",
-          value: "id"
+          value: "id",
+          sortable: false,
+          width: 1
         }
       ]
     };
