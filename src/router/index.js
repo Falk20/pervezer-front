@@ -76,6 +76,10 @@ const routes = [
         path: "addresses",
         component: () => import("@/components/ClientDetail/Addresses"),
       },
+      {
+        path: "offices",
+        component: () => import("@/components/ClientDetail/Offices"),
+      },
     ],
   },
   {
