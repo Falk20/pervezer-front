@@ -78,8 +78,8 @@ export default {
           this.sending = true;
 
           const { status } = await Axios.post(CREATE_OFFICE, {
-            client: this.$route.params.clientID,
-            name: this.office
+            clientId: this.$route.params.clientID,
+            office: this.office
           });
 
           if (status === 200) {
