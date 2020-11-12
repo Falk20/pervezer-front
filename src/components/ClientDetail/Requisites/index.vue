@@ -2,7 +2,7 @@
   <div class="d-flex flex-column align-center">
     <p v-if="isLoad">Load...</p>
     <p v-else-if="isErr">Error</p>
-    <v-card v-else width="400">
+    <v-card v-else width="768">
       <v-card-title>
         <v-text-field
           v-model="search"
@@ -16,18 +16,16 @@
 
       <v-data-table
         :headers="tableHeaders"
-        :items="addresses"
+        :items="requisites"
         item-key="id"
         :search="search"
       >
-        <template v-slot:no-data>Нет адресов</template>
-        <template v-slot:no-results>Нет таких адресов</template>
+        <template v-slot:no-data>Нет реквизитов</template>
+        <template v-slot:no-results>Нет таких реквизитов</template>
 
         <template v-slot:item.id="{ item }">
-          <v-btn color="red" dark @click="removeAddess(item)">
-            <v-icon dark>
-              mdi-delete
-            </v-icon>
+          <v-btn color="red" dark @click="removeRequisite(item)">
+            <v-icon dark> mdi-delete </v-icon>
           </v-btn>
         </template>
       </v-data-table>
@@ -37,12 +35,12 @@
           <template v-slot:activator="{ on, attrs }">
             <div class="text-center pt-2">
               <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-                Добавить адрес
+                Добавить реквизит
               </v-btn>
             </div>
           </template>
           <CreateRequisiteForm
-            @create-address="addNewAddress"
+            @create-requisite="addNewRequisite"
             @close="dialog = false"
           />
         </v-dialog>
@@ -52,7 +50,7 @@
 </template>
 
 <script>
-import { GET_CLIENT_ADDRESSES, REMOVE_ADDRESS } from "@/api";
+import { GET_CLIENT_REQUISITES, REMOVE_REQUISITE } from "@/api";
 import Axios from "axios";
 
 import CreateRequisiteForm from "./CreateRequisiteForm";
@@ -61,7 +59,7 @@ export default {
   name: "client-details-requisites",
 
   components: {
-    CreateRequisiteForm
+    CreateRequisiteForm,
   },
 
   data() {
@@ -70,32 +68,43 @@ export default {
       isLoad: true,
       isErr: false,
       dialog: false,
-      addresses: null,
+      requisites: null,
       tableHeaders: [
         {
-          text: "Адрес",
-          value: "address",
-          width: "100%"
+          text: "Клиентский счет",
+          value: "kaccount",
+        },
+        {
+          text: "Расчетный счет",
+          value: "raccount",
+        },
+        {
+          text: "Название банка",
+          value: "bankName",
+        },
+        {
+          text: "БИК банка",
+          value: "bankBIC",
         },
         {
           text: "",
           value: "id",
-          sortable: false
-        }
-      ]
+          sortable: false,
+        },
+      ],
     };
   },
 
   methods: {
-    async getAddresses() {
+    async getRequisites() {
       try {
-        const { data: addresses } = await Axios.get(GET_CLIENT_ADDRESSES, {
+        const { data: requisites } = await Axios.get(GET_CLIENT_REQUISITES, {
           params: {
-            id: this.$route.params.clientID
-          }
+            id: this.$route.params.clientID,
+          },
         });
 
-        this.addresses = addresses;
+        this.requisites = requisites;
       } catch {
         this.isErr = true;
       } finally {
@@ -103,24 +112,16 @@ export default {
       }
     },
 
-    formatDate(date) {
-      return new Date(date).toLocaleDateString("ru", {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric"
-      });
-    },
-
-    async removeAddess(item) {
+    async removeRequisite(item) {
       try {
-        const { status } = await Axios.post(REMOVE_ADDRESS, {
-          addressId: item.id
+        const { status } = await Axios.post(REMOVE_REQUISITE, {
+          requisiteId: item.id,
         });
 
         if (status === 200) {
-          const itemIndex = this.addresses.indexOf(item);
+          const itemIndex = this.requisites.indexOf(item);
 
-          this.addresses.splice(itemIndex, 1);
+          this.requisites.splice(itemIndex, 1);
         } else {
           throw new Error();
         }
@@ -129,13 +130,13 @@ export default {
       }
     },
 
-    addNewAddress() {
-      this.getAddresses();
-    }
+    addNewRequisite() {
+      this.getRequisites();
+    },
   },
 
   created() {
-    this.getAddresses();
-  }
+    this.getRequisites();
+  },
 };
 </script>

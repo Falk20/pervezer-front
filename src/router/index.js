@@ -80,6 +80,10 @@ const routes = [
         path: "offices",
         component: () => import("@/components/ClientDetail/Offices"),
       },
+      {
+        path: "requisites",
+        component: () => import("@/components/ClientDetail/Requisites"),
+      },
     ],
   },
   {

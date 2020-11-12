@@ -1,8 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>
-      Новый адрес
-    </v-card-title>
+    <v-card-title> Новый адрес </v-card-title>
 
     <v-form
       ref="form"
@@ -14,8 +12,31 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="address"
-              label="Адрес"
+              v-model="inputs.kaccount"
+              label="Клиентский счет"
+              :rules="[rules.required]"
+            />
+          </v-col>
+          <v-col>
+            <v-text-field
+              v-model="inputs.raccount"
+              label="Расчетный счет"
+              :rules="[rules.required]"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-text-field
+              v-model="inputs.bankName"
+              label="Название банка"
+              :rules="[rules.required]"
+            />
+          </v-col>
+          <v-col>
+            <v-text-field
+              v-model="inputs.bankBIC"
+              label="БИК банка"
               :rules="[rules.required]"
             />
           </v-col>
@@ -52,7 +73,7 @@
 
 <script>
 import Axios from "axios";
-import { CREATE_ADDRESS } from "@/api";
+import { CREATE_REQUISITE } from "@/api";
 
 export default {
   name: "client-detail-requisite-create-form",
@@ -60,12 +81,18 @@ export default {
   data() {
     return {
       isValid: true,
-      address: "",
+
+      inputs: {
+        kaccount: "",
+        raccount: "",
+        bankName: "",
+        bankBIC: "",
+      },
       sending: false,
       isErr: false,
       rules: {
-        required: v => !!v || "Обязательное поле"
-      }
+        required: (v) => !!v || "Обязательное поле",
+      },
     };
   },
 
@@ -77,13 +104,13 @@ export default {
         if (this.isValid) {
           this.sending = true;
 
-          const { status } = await Axios.post(CREATE_ADDRESS, {
+          const { status } = await Axios.post(CREATE_REQUISITE, {
+            ...this.inputs,
             clientId: this.$route.params.clientID,
-            address: this.address
           });
 
           if (status === 200) {
-            this.$emit("create-address");
+            this.$emit("create-requisite");
 
             this.close();
           }
@@ -96,8 +123,10 @@ export default {
     },
     close() {
       this.$emit("close");
-      this.address = "";
-    }
-  }
+      for (let key in this.inputs) {
+        this.inputs[key] = "";
+      }
+    },
+  },
 };
 </script>

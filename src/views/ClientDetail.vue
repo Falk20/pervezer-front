@@ -13,7 +13,7 @@ export default {
   name: "client-detail",
 
   components: {
-    TabsMenu
+    TabsMenu,
   },
 
   data() {
@@ -22,28 +22,32 @@ export default {
       tabs: [
         {
           label: "Общие настройки",
-          to: `/client-detail/${this.$route.params.clientID}`
+          to: `/client-detail/${this.$route.params.clientID}`,
         },
         {
           label: "IP-адреса",
-          to: `/client-detail/${this.$route.params.clientID}/ips`
+          to: `/client-detail/${this.$route.params.clientID}/ips`,
         },
         {
           label: "Адреса",
-          to: `/client-detail/${this.$route.params.clientID}/addresses`
+          to: `/client-detail/${this.$route.params.clientID}/addresses`,
         },
         {
           label: "Офисы",
-          to: `/client-detail/${this.$route.params.clientID}/offices`
-        }
-      ]
+          to: `/client-detail/${this.$route.params.clientID}/offices`,
+        },
+        {
+          label: "Ревизиты",
+          to: `/client-detail/${this.$route.params.clientID}/requisites`,
+        },
+      ],
     };
   },
 
   computed: {
     tabsLabels() {
-      return this.tabs.map(tab => tab.label);
-    }
-  }
+      return this.tabs.map((tab) => tab.label);
+    },
+  },
 };
 </script>

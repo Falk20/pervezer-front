@@ -19,3 +19,6 @@ export const REMOVE_ADDRESS = addIP("Address/remove-address");
 export const GET_CLIENT_OFFICES = addIP("Client/get-client-offices");
 export const CREATE_OFFICE = addIP("Office/create-office");
 export const REMOVE_OFFICE = addIP("Office/remove-office");
+export const GET_CLIENT_REQUISITES = addIP("Client/get-client-rekvizits");
+export const CREATE_REQUISITE = addIP("Rekvizit/create-rekvizit");
+export const REMOVE_REQUISITE = addIP("Rekvizit/remove-rekvizit");
