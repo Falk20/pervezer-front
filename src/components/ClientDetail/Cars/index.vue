@@ -32,7 +32,9 @@
             </v-icon>
           </v-btn>
         </template>
-
+        <template v-slot:item.year="{ item }">
+          {{ formatDate(item.year) }}
+        </template>
         <template v-slot:top>
           <v-dialog v-model="dialog" max-width="500px">
             <UpdateCarForm
@@ -158,6 +160,13 @@ export default {
     },
     updateCars() {
       this.getCars();
+    },
+    formatDate(date) {
+      return new Date(date).toLocaleDateString("ru", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric"
+      });
     },
   },
     created() {

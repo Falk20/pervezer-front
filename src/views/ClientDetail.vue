@@ -39,6 +39,10 @@ export default {
         {
           label: "Гараж",
           to: `/client-detail/${this.$route.params.clientID}/cars`
+        },
+        {
+          label: "Реквизиты",
+          to: `/client-detail/${this.$route.params.clientID}/rekvizits`
         }
       ]
     };

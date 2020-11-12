@@ -84,6 +84,10 @@ const routes = [
         path: "cars",
         component: () => import("@/components/ClientDetail/Cars"),
       },
+      {
+        path: "rekvizits",
+        component: () => import("@/components/ClientDetail/Rekvizits"),
+      },
     ],
   },
   {
