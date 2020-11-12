@@ -16,7 +16,7 @@
             <v-text-field
               v-model="rekvizit.kaccount"
               label="Счет клиента"
-              :rules="[rules.required]"
+              :rules="[rules.required, rules.account]"
             />
           </v-col>
         </v-row>
@@ -25,7 +25,7 @@
             <v-text-field
               v-model="rekvizit.raccount"
               label="Рассчетный счет банка"
-              :rules="[rules.required]"
+              :rules="[rules.required, rules.account]"
             />
           </v-col>
         </v-row>
@@ -97,7 +97,11 @@ export default {
       sending: false,
       isErr: false,
       rules: {
-        required: v => !!v || "Обязательное поле"
+        required: v => !!v || "Обязательное поле",
+        account: v => {
+          const pattern = /^[0-9]{20}$/;
+          return pattern.test(v) || "Счет не валиден";
+        }
       }
     };
   },
