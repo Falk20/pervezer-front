@@ -1,10 +1,10 @@
 <template>
   <v-card>
-    <v-card-title>Новый реквизит</v-card-title>
+    <v-card-title> Новый автомобиль </v-card-title>
 
     <v-form
       ref="form"
-      @submit.prevent="saveNewRequisite"
+      @submit.prevent="saveNewCar"
       class="pa-1"
       v-model="isValid"
     >
@@ -12,15 +12,15 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="inputs.kaccount"
-              label="Клиентский счет"
+              v-model="inputs.name"
+              label="Название"
               :rules="[rules.required]"
             />
           </v-col>
           <v-col>
             <v-text-field
-              v-model="inputs.raccount"
-              label="Расчетный счет"
+              v-model="inputs.vin"
+              label="ВИН номер"
               :rules="[rules.required]"
             />
           </v-col>
@@ -28,15 +28,63 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="inputs.bankName"
-              label="Название банка"
+              v-model="inputs.frame"
+              label="Фрейм кузова"
+              :rules="[rules.required]"
+            />
+          </v-col>
+          <v-col>
+            <YearPicker
+              v-model="inputs.year"
+              label="Год выпуска"
+              :rules="[rules.required]"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-text-field
+              v-model="inputs.model"
+              label="Модель"
               :rules="[rules.required]"
             />
           </v-col>
           <v-col>
             <v-text-field
-              v-model="inputs.bankBIC"
-              label="БИК банка"
+              v-model="inputs.mark"
+              label="Марка"
+              :rules="[rules.required]"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-text-field
+              v-model="inputs.modify"
+              label="Модификация"
+              :rules="[rules.required]"
+            />
+          </v-col>
+          <v-col>
+            <v-text-field
+              v-model="inputs.gosNumber"
+              label="Гос номер"
+              :rules="[rules.required]"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-text-field
+              v-model="inputs.probeg"
+              label="Пробег"
+              :rules="[rules.required]"
+            />
+          </v-col>
+          <v-col>
+            <v-text-field
+              v-model="inputs.desc"
+              label="Описание"
               :rules="[rules.required]"
             />
           </v-col>
@@ -73,20 +121,32 @@
 
 <script>
 import Axios from "axios";
-import { CREATE_REQUISITE } from "@/api";
+import { CREATE_CAR } from "@/api";
+
+import YearPicker from "./YearPicker";
 
 export default {
-  name: "client-detail-requisite-create-form",
+  name: "client-detail-car-create-form",
+
+  components: {
+    YearPicker,
+  },
 
   data() {
     return {
       isValid: true,
 
       inputs: {
-        kaccount: "",
-        raccount: "",
-        bankName: "",
-        bankBIC: "",
+        name: "",
+        vin: "",
+        frame: "",
+        year: "",
+        model: "",
+        mark: "",
+        modify: "",
+        gosNumber: "",
+        probeg: "",
+        desc: "",
       },
       sending: false,
       isErr: false,
@@ -97,20 +157,20 @@ export default {
   },
 
   methods: {
-    async saveNewIp() {
+    async saveNewCar() {
       try {
         this.$refs.form.validate();
 
         if (this.isValid) {
           this.sending = true;
 
-          const { status } = await Axios.post(CREATE_REQUISITE, {
+          const { status } = await Axios.post(CREATE_CAR, {
             ...this.inputs,
             clientId: this.$route.params.clientID,
           });
 
           if (status === 200) {
-            this.$emit("create-requisite");
+            this.$emit("create-car");
 
             this.close();
           }

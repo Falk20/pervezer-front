@@ -40,6 +40,10 @@ export default {
           label: "Ревизиты",
           to: `/client-detail/${this.$route.params.clientID}/requisites`,
         },
+        {
+          label: "Автомобили",
+          to: `/client-detail/${this.$route.params.clientID}/garage`,
+        },
       ],
     };
   },

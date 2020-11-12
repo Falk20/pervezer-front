@@ -22,3 +22,7 @@ export const REMOVE_OFFICE = addIP("Office/remove-office");
 export const GET_CLIENT_REQUISITES = addIP("Client/get-client-rekvizits");
 export const CREATE_REQUISITE = addIP("Rekvizit/create-rekvizit");
 export const REMOVE_REQUISITE = addIP("Rekvizit/remove-rekvizit");
+export const GET_CLIENT_CARS = addIP("Client/get-client-cars");
+export const CREATE_CAR = addIP("Car/create-car");
+export const REMOVE_CAR = addIP("Car/remove-car");
+export const UPDATE_CAR = addIP("Car/update-car");

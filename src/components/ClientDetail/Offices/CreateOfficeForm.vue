@@ -1,12 +1,10 @@
 <template>
   <v-card>
-    <v-card-title>
-      Новый офис
-    </v-card-title>
+    <v-card-title> Новый офис </v-card-title>
 
     <v-form
       ref="form"
-      @submit.prevent="saveNewIp"
+      @submit.prevent="saveNewOffice"
       class="pa-1"
       v-model="isValid"
     >
@@ -64,13 +62,13 @@ export default {
       sending: false,
       isErr: false,
       rules: {
-        required: v => !!v || "Обязательное поле"
-      }
+        required: (v) => !!v || "Обязательное поле",
+      },
     };
   },
 
   methods: {
-    async saveNewIp() {
+    async saveNewOffice() {
       try {
         this.$refs.form.validate();
 
@@ -79,7 +77,7 @@ export default {
 
           const { status } = await Axios.post(CREATE_OFFICE, {
             client: this.$route.params.clientID,
-            name: this.office
+            name: this.office,
           });
 
           if (status === 200) {
@@ -97,7 +95,7 @@ export default {
     close() {
       this.$emit("close");
       this.office = "";
-    }
-  }
+    },
+  },
 };
 </script>
