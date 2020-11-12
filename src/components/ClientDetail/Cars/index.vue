@@ -1,7 +1,6 @@
 <template>
   <div class="d-flex flex-column align-center">
-    <p v-if="isLoad">Load...</p>
-    <p v-else-if="isErr">Error</p>
+    <p v-if="isErr">Error</p>
     <v-card v-else>
       <v-card-title>
         <v-text-field
@@ -19,9 +18,10 @@
         :items="cars"
         item-key="id"
         :search="search"
+        :loading="isLoad"
       >
-        <template v-slot:no-data>Нет реквизитов</template>
-        <template v-slot:no-results>Нет таких реквизитов</template>
+        <template v-slot:no-data>Нет автомобилей</template>
+        <template v-slot:no-results>Нет таких автомобилей</template>
 
         <template v-slot:item.id="{ item }">
           <v-btn color="red" dark @click="removeCar(item)">
@@ -65,7 +65,7 @@ export default {
       isLoad: true,
       isErr: false,
       dialog: false,
-      cars: null,
+      cars: [],
       tableHeaders: [
         {
           text: "Название",
