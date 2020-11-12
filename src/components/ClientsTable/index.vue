@@ -114,9 +114,6 @@ export default {
           text: "Комментарий менеджера"
         },
         {
-          text: "Теги"
-        },
-        {
           text: "Карточка клиента",
           value: "clientCard",
           align: "center"
@@ -129,12 +126,6 @@ export default {
         {
           text: "Цены"
         },
-        {
-          text: "Xls"
-        },
-        {
-          text: "Вход"
-        }
       ]
     };
   },

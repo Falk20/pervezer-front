@@ -1,12 +1,12 @@
 <template>
   <v-card>
     <v-card-title>
-      Добавление машины
+      Обновление данных машины
     </v-card-title>
 
     <v-form
       ref="form"
-      @submit.prevent="createCar"
+      @submit.prevent="updateCar"
       class="pa-1"
       v-model="isValid"
     >
@@ -14,7 +14,7 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="newCar.name"
+              v-model="selectedCar.name"
               label="Название"
             />
           </v-col>
@@ -22,7 +22,7 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="newCar.vin"
+              v-model="selectedCar.vin"
               label="VIN"
               :rules="[rules.required, rules.vin]"
             />
@@ -31,23 +31,25 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="newCar.frame"
+              v-model="selectedCar.frame"
               label="Frame"
+              :rules="[rules.required]"
             />
           </v-col>
         </v-row>
         <v-row>
           <v-col>
             <v-text-field
-              v-model="newCar.year"
+              v-model="selectedCar.year"
               label="Год выпуска"
+              :rules="[rules.required]"
             />
           </v-col>
         </v-row>
         <v-row>
           <v-col>
             <v-text-field
-              v-model="newCar.model"
+              v-model="selectedCar.model"
               label="Марка"
             />
           </v-col>
@@ -55,7 +57,7 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="newCar.mark"
+              v-model="selectedCar.mark"
               label="Модель"
             />
           </v-col>
@@ -63,7 +65,7 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="newCar.modify"
+              v-model="selectedCar.modify"
               label="Модификация"
             />
           </v-col>
@@ -71,7 +73,7 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="newCar.gosNumber"
+              v-model="selectedCar.gosNumber"
               label="Гос номер"
               :rules="[rules.required]"
             />
@@ -80,7 +82,7 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="newCar.probeg"
+              v-model="selectedCar.probeg"
               label="Пробег"
             />
           </v-col>
@@ -88,7 +90,7 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="newCar.desc"
+              v-model="selectedCar.desc"
               label="Описание"
             />
           </v-col>
@@ -103,11 +105,22 @@
               color="primary"
               :loading="sending"
             >
-              Добавить
+              Обновить
             </v-btn>
           </v-col>
           <v-col>
             <v-btn width="100%" type="button" @click="close">Отменить</v-btn>
+          </v-col>
+          <v-col>
+            <v-btn
+              width="100%"
+              type="submit"
+              color="error"
+              :loading="sending"
+              @click="removeCar()"
+            >
+              Удалить
+            </v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -119,7 +132,7 @@
         dismissible
         transition="scale-transition"
       >
-        Не удалось добавить машину
+        Не удалось обновить машину
       </v-alert>
     </v-form>
   </v-card>
@@ -127,51 +140,68 @@
 
 <script>
 import Axios from "axios";
-import { CREATE_CAR } from "@/api";
+import { UPDATE_CAR } from "@/api";
+import { REMOVE_CAR } from "@/api";
 
 export default {
-  name: "client-detail-car-create-form",
+  name: "client-detail-car-update-form",
+    props:{
+        selectedCar:{}
+    },
   data() {
     return {
       isValid: true,
       sending: false,
       isErr: false,
-      newCar:[],
       rules: {
-        required: v => !!v || "Обязательное поле"
+        required: v => !!v || "Обязательное поле",
+        vin: v => v.length >= 17 || "Не менее 17 символов",
       }
     };
   },
 
   methods: {
-    async createCar() {
+    async updateCar() {
       try {
 
         if (this.isValid) {
           this.sending = true;
-          console.log(this.newCar);
+
           const { status } = await Axios.post(
-            CREATE_CAR,{
-                name: this.newCar.name,
-                vin: this.newCar.vin,
-                frame: this.newCar.frame,
-                year: this.newCar.year,
-                model: this.newCar.model,
-                mark: this.newCar.mark,
-                modify: this.newCar.modify,
-                gosNumber: this.newCar.gosNumber,
-                probeg: this.newCar.probeg,
-                desc: this.newCar.desc,
+            UPDATE_CAR,{
+                carId: this.selectedCar.id,
+                name: this.selectedCar.name,
+                vin: this.selectedCar.vin,
+                frame: this.selectedCar.frame,
+                year: this.selectedCar.year,
+                model: this.selectedCar.model,
+                mark: this.selectedCar.mark,
+                modify: this.selectedCar.modify,
+                gosNumber: this.selectedCar.gosNumber,
+                probeg: this.selectedCar.probeg,
+                desc: this.selectedCar.desc,
                 clientId: this.$route.params.clientID,
             }
           );
 
           if (status === 200) {
-            this.$emit("create-car");
+            this.$emit("update-car");
 
             this.close();
           }
         }
+      } catch {
+        this.isErr = true;
+      } finally {
+        this.sending = false;
+      }
+    },
+    async deleteCar(){
+    try {
+          await Axios.post(REMOVE_CAR, {
+            carId: this.selectedCar.id
+          });
+          this.$emit("update-car");
       } catch {
         this.isErr = true;
       } finally {

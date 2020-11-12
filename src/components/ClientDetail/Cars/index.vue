@@ -3,6 +3,19 @@
     <p v-if="isLoad">Load...</p>
     <p v-else-if="isErr">Error</p>
     <template v-else>
+            <div class="text-center pt-2">
+              <v-btn color="primary" dark class="mb-2" @click="openCarCreate()">
+                Добавить машину
+                <template>
+                  <v-dialog v-model="dialog2" max-width="500px">
+                    <CreateCarForm
+                    @create-car="updateCars"
+                    @close="dialog2 = false"
+                    />
+                  </v-dialog>
+                </template>
+              </v-btn>
+            </div>
       <v-data-table
         v-model="selected"
         :headers="tableHeaders"
@@ -12,31 +25,22 @@
         show-select
         class="elevation-1"
       >
-        <template v-slot:top>
-          <v-dialog v-model="dialog" max-width="500px">
-            <v-card>
-              <v-card-title>
-                <span class="headline">{{ openedItem.VIN }}</span>
-              </v-card-title>
-            </v-card>
-          </v-dialog>
-        </template>
-
-        <!-- <template v-slot:item.email="{ item }">
-          <a :href="`mailto:${item.email}`">{{ item.email }}</a>
-        </template>
-        <template v-slot:item.mobile="{ item }">
-          <a :href="`tel:+${item.mobile}`">{{ item.mobile }}</a>
-        </template>
-        <template v-slot:item.birthDate="{ item }">
-          {{ getCurrentDate(item.birthDate) }}
-        </template> -->
-        <template v-slot:item.carCard="{ item }">
+      <template v-slot:item.carUpdateCard="{ item }">
           <v-btn icon @click="openCarInfo(item)">
             <v-icon>
-              mdi-account-details
+              mdi-car
             </v-icon>
           </v-btn>
+        </template>
+
+        <template v-slot:top>
+          <v-dialog v-model="dialog" max-width="500px">
+            <UpdateCarForm
+            @update-car="updateCars"
+            @close="dialog = false"
+            :selectedCar="openedItem"
+            />
+          </v-dialog>
         </template>
       </v-data-table>
     </template>
@@ -46,6 +50,8 @@
 <script>
 import Axios from "axios";
 import { GET_CLIENT_CARS } from "@/api";
+import CreateCarForm from "./CreateCarForm";
+import UpdateCarForm from "./UpdateCarForm";
 
 export default {
   name: "CarsTable",
@@ -56,10 +62,15 @@ export default {
       isErr: false,
       cars: null,
       dialog: false,
+      dialog2: false,
       openedItem: {},
       openedIndex: -1,
       selected: [],
       tableHeaders: [
+        {
+          text: "Код",
+          value: "id"
+        },
         {
           text: "Название",
           value: "name"
@@ -102,22 +113,20 @@ export default {
         },
         {
           text: "Изменить",
-          value: "carCard",
+          value: "carUpdateCard",
           align: "center"
-        },
-        {
-          text: "Удалить",
-          value: "carEdit",
-          align: "center"
-        },
+        }
       ]
     };
   },
-
+  components:{
+    UpdateCarForm,
+    CreateCarForm
+  },
   methods: {
     openCarInfo(car) {
       this.openedIndex = this.cars.indexOf(car);
-      this.openedItem = Object.assign({}, car);
+      this.openedItem = car;
       this.dialog = true;
     },
     closeCarInfo() {
@@ -127,16 +136,14 @@ export default {
         this.openedIndex = -1;
       });
     },
-    getCurrentDate(date) {
-      return new Date(date).toLocaleString("ru", {
-        day: "numeric",
-        month: "numeric",
-        year: "numeric"
-      });
+    openCarCreate() {
+      this.dialog2 = true;
+    },
+    closeCarCreate() {
+      this.dialog2 = false;
     },
     async getCars() {
       try {
-          console.log(this.$route.params.clientID);
         const { data: cars } = await Axios.get(GET_CLIENT_CARS, {
           params: {
             id: this.$route.params.clientID
@@ -148,17 +155,23 @@ export default {
       } finally {
         this.isLoad = false;
       }
-    }
+    },
+    updateCars() {
+      this.getCars();
+    },
   },
-
-  created() {
-    this.getCars();
+    created() {
+      this.getCars();
   },
 
   watch: {
     dialog(val) {
       val || this.closeCarInfo();
-    }
+    },
+    dialog2(val) {
+      val || this.closeCarCreate();
+    },
+    
   }
 };
 </script>
