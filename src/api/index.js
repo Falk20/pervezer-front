@@ -31,3 +31,7 @@ export const GET_CLIENT_CARS = addIP("Client/get-client-cars");
 export const CREATE_CAR = addIP("Car/create-car");
 export const UPDATE_CAR = addIP("Car/update-car");
 export const REMOVE_CAR = addIP("Car/remove-car");
+
+export const GET_PROFILES_TO_UPDATE = addIP("Profile/get-profiles-to-update");
+export const CREATE_DISCOUNT = addIP("Discount/create-discount");
+export const REMOVE_DISCOUNT = addIP("Discount/remove-discount");

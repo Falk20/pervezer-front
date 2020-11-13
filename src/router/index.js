@@ -39,7 +39,8 @@ const routes = [
         component: () => import("@/components/ClientsTable"),
       },
       {
-        path: "profile",
+        path: "profiles",
+        component: () => import("@/components/ProfilesTable"),
       },
       {
         path: "guest",

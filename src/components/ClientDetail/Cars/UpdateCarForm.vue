@@ -111,17 +111,6 @@
           <v-col>
             <v-btn width="100%" type="button" @click="close">Отменить</v-btn>
           </v-col>
-          <v-col>
-            <v-btn
-              width="100%"
-              type="submit"
-              color="error"
-              :loading="sending"
-              @click="removeCar()"
-            >
-              Удалить
-            </v-btn>
-          </v-col>
         </v-row>
       </v-container>
       <v-alert
@@ -134,6 +123,22 @@
       >
         Не удалось обновить машину
       </v-alert>
+    </v-form>
+    <v-form
+      ref="form"
+      @submit.prevent="deleteCar"
+      class="pa-1"
+    >
+      <v-col>
+            <v-btn
+              width="100%"
+              type="submit"
+              color="error"
+              :loading="sending"
+            >
+              Удалить
+            </v-btn>
+          </v-col>
     </v-form>
   </v-card>
 </template>
@@ -155,7 +160,7 @@ export default {
       isErr: false,
       rules: {
         required: v => !!v || "Обязательное поле",
-        vin: v => v.length >= 17 || "Не менее 17 символов",
+        vin: v => v.length >= 1 || "Не менее 17 символов",
       }
     };
   },
@@ -202,6 +207,7 @@ export default {
             carId: this.selectedCar.id
           });
           this.$emit("update-car");
+          this.close();
       } catch {
         this.isErr = true;
       } finally {
