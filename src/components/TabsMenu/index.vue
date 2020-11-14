@@ -2,7 +2,7 @@
   <v-tabs v-model="tab" fixed-tabs background-color="primary" dark>
     <v-tabs-slider color="yellow"></v-tabs-slider>
 
-    <v-tab v-for="(item, i) in tabs" :key="i" :to="item.to">
+    <v-tab v-for="(item, i) in tabs" :key="i" exact :to="item.to">
       {{ item.label }}
     </v-tab>
   </v-tabs>
@@ -14,7 +14,7 @@ export default {
 
   model: {
     prop: "value",
-    event: "change"
+    event: "change",
   },
 
   props: { value: {}, tabs: Array },
@@ -26,8 +26,8 @@ export default {
       },
       set(v) {
         this.$emit("change", v);
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
