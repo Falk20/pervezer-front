@@ -1,7 +1,6 @@
 <template>
   <div class="d-flex flex-column align-center">
-    <p v-if="isLoad">Load...</p>
-    <p v-else-if="isErr">Error</p>
+    <p v-if="isErr">Error</p>
     <v-card v-else width="400">
       <v-card-title>
         <v-text-field
@@ -19,15 +18,14 @@
         :items="offices"
         item-key="id"
         :search="search"
+        :loading="isLoad"
       >
         <template v-slot:no-data>Нет офисов</template>
         <template v-slot:no-results>Нет таких офисов</template>
 
         <template v-slot:item.id="{ item }">
           <v-btn color="red" dark @click="removeIp(item)">
-            <v-icon dark>
-              mdi-delete
-            </v-icon>
+            <v-icon dark> mdi-delete </v-icon>
           </v-btn>
         </template>
       </v-data-table>
@@ -61,7 +59,7 @@ export default {
   name: "client-details-offices",
 
   components: {
-    CreateOfficeForm
+    CreateOfficeForm,
   },
 
   data() {
@@ -70,19 +68,19 @@ export default {
       isLoad: true,
       isErr: false,
       dialog: false,
-      offices: null,
+      offices: [],
       tableHeaders: [
         {
           text: "Офис",
           value: "name",
-          width: "100%"
+          width: "100%",
         },
         {
           text: "",
           value: "id",
-          sortable: false
-        }
-      ]
+          sortable: false,
+        },
+      ],
     };
   },
 
@@ -91,8 +89,8 @@ export default {
       try {
         const { data: offices } = await Axios.get(GET_CLIENT_OFFICES, {
           params: {
-            id: this.$route.params.clientID
-          }
+            id: this.$route.params.clientID,
+          },
         });
 
         this.offices = offices;
@@ -107,7 +105,7 @@ export default {
       return new Date(date).toLocaleDateString("ru", {
         year: "numeric",
         month: "numeric",
-        day: "numeric"
+        day: "numeric",
       });
     },
 
@@ -118,7 +116,7 @@ export default {
     async removeIp(item) {
       try {
         const { status } = await Axios.post(REMOVE_OFFICE, {
-          officeId: item.id
+          officeId: item.id,
         });
 
         if (status === 200) {
@@ -135,11 +133,11 @@ export default {
 
     addNewOffice() {
       this.getOffices();
-    }
+    },
   },
 
   created() {
     this.getOffices();
-  }
+  },
 };
 </script>

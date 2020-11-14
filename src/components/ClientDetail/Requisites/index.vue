@@ -1,7 +1,6 @@
 <template>
   <div class="d-flex flex-column align-center">
-    <p v-if="isLoad">Load...</p>
-    <p v-else-if="isErr">Error</p>
+    <p v-if="isErr">Error</p>
     <v-card v-else width="768">
       <v-card-title>
         <v-text-field
@@ -19,6 +18,7 @@
         :items="requisites"
         item-key="id"
         :search="search"
+        :loading="isLoad"
       >
         <template v-slot:no-data>Нет реквизитов</template>
         <template v-slot:no-results>Нет таких реквизитов</template>
@@ -68,7 +68,7 @@ export default {
       isLoad: true,
       isErr: false,
       dialog: false,
-      requisites: null,
+      requisites: [],
       tableHeaders: [
         {
           text: "Клиентский счет",

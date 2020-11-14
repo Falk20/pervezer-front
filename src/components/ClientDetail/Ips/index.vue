@@ -1,9 +1,13 @@
 <template>
   <div class="d-flex flex-column align-center">
-    <p v-if="isLoad">Load...</p>
-    <p v-else-if="isErr">Error</p>
+    <p v-if="isErr">Error</p>
     <v-card v-else width="1024">
-      <v-data-table :headers="tableHeaders" :items="ips" item-key="id">
+      <v-data-table
+        :headers="tableHeaders"
+        :items="ips"
+        item-key="id"
+        :loading="isLoad"
+      >
         <template v-slot:no-data>Нет IP</template>
 
         <template v-slot:item.addingDate="{ item }">
@@ -14,9 +18,7 @@
         </template>
         <template v-slot:item.id="{ item }">
           <v-btn color="red" dark @click="removeIp(item)">
-            <v-icon dark>
-              mdi-delete
-            </v-icon>
+            <v-icon dark> mdi-delete </v-icon>
             Удалить
           </v-btn>
         </template>
@@ -48,7 +50,7 @@ export default {
   name: "client-details-ips",
 
   components: {
-    CreateIpForm
+    CreateIpForm,
   },
 
   data() {
@@ -56,31 +58,31 @@ export default {
       isLoad: true,
       isErr: false,
       dialog: false,
-      ips: null,
+      ips: [],
       tableHeaders: [
         {
           text: "IP",
-          value: "ip"
+          value: "ip",
         },
         {
           text: "Дата добавления",
-          value: "addingDate"
+          value: "addingDate",
         },
         {
           text: "Дабавлено автоматически",
-          value: "isAutomatedAdded"
+          value: "isAutomatedAdded",
         },
         {
           text: "Число сообщений",
-          value: "messageCount"
+          value: "messageCount",
         },
         {
           text: "",
           value: "id",
           sortable: false,
-          width: 1
-        }
-      ]
+          width: 1,
+        },
+      ],
     };
   },
 
@@ -89,8 +91,8 @@ export default {
       try {
         const { data: ips } = await Axios.get(GET_CLIENT_IPS, {
           params: {
-            id: this.$route.params.clientID
-          }
+            id: this.$route.params.clientID,
+          },
         });
 
         this.ips = ips;
@@ -105,14 +107,14 @@ export default {
       return new Date(date).toLocaleDateString("ru", {
         year: "numeric",
         month: "numeric",
-        day: "numeric"
+        day: "numeric",
       });
     },
 
     async removeIp(item) {
       try {
         const { status } = await Axios.post(REMOVE_IP, {
-          id: item.id
+          id: item.id,
         });
 
         if (status === 200) {
@@ -129,11 +131,11 @@ export default {
 
     addNewIp() {
       this.getIps();
-    }
+    },
   },
 
   created() {
     this.getIps();
-  }
+  },
 };
 </script>

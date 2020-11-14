@@ -1,7 +1,6 @@
 <template>
   <div>
-    <p v-if="isLoad">Load...</p>
-    <p v-else-if="isErr">Error</p>
+    <p v-if="isErr">Error</p>
     <template v-else>
       <v-data-table
         v-model="selected"
@@ -11,6 +10,7 @@
         item-key="id"
         show-select
         class="elevation-1"
+        :loading="isLoad"
       >
         <template v-slot:top>
           <v-dialog v-model="dialog" max-width="500px">
@@ -22,9 +22,7 @@
           </v-dialog>
         </template>
 
-        <template v-slot:item.organization>
-          -
-        </template>
+        <template v-slot:item.organization> - </template>
 
         <template v-slot:item.email="{ item }">
           <a :href="`mailto:${item.email}`">{{ item.email }}</a>
@@ -37,16 +35,12 @@
         </template>
         <template v-slot:item.clientCard="{ item }">
           <v-btn icon @click="openClientInfo(item)">
-            <v-icon>
-              mdi-account-details
-            </v-icon>
+            <v-icon> mdi-account-details </v-icon>
           </v-btn>
         </template>
         <template v-slot:item.clientEdit="{ item }">
           <v-btn icon :to="`/client-detail/${item.id}`">
-            <v-icon>
-              mdi-account-edit
-            </v-icon>
+            <v-icon> mdi-account-edit </v-icon>
           </v-btn>
         </template>
       </v-data-table>
@@ -65,7 +59,7 @@ export default {
     return {
       isLoad: true,
       isErr: false,
-      clients: null,
+      clients: [],
       dialog: false,
       openedItem: {},
       openedIndex: -1,
@@ -73,76 +67,76 @@ export default {
       tableHeaders: [
         {
           text: "Код клиента",
-          value: "id"
+          value: "id",
         },
         {
           text: "Профиль",
-          value: "profile.name"
+          value: "profile.name",
         },
         {
-          text: "Организация"
+          text: "Организация",
         },
         {
           text: "Email",
-          value: "email"
+          value: "email",
         },
         {
           text: "Наценка, %",
-          value: "profile.surCharge"
+          value: "profile.surCharge",
         },
         {
           text: "Сальдо, руб",
-          value: "saldo.value"
+          value: "saldo.value",
         },
         {
           text: "ФИО",
-          value: "fio"
+          value: "fio",
         },
         {
           text: "Город",
-          value: "city"
+          value: "city",
         },
         {
           text: "Контакты",
-          value: "mobile"
+          value: "mobile",
         },
         {
           text: "Регистрация",
-          value: "birthDate"
+          value: "birthDate",
         },
         {
           text: "Комментарий менеджера",
-          sortable: false
+          sortable: false,
         },
         {
           text: "Теги",
-          sortable: false
+          sortable: false,
         },
         {
           text: "Карточка клиента",
           value: "clientCard",
           align: "center",
-          sortable: false
+          sortable: false,
         },
         {
           text: "Ред.",
           value: "clientEdit",
           align: "center",
-          sortable: false
+          sortable: false,
         },
         {
           text: "Цены",
-          sortable: false
+          sortable: false,
         },
         {
           text: "Xls",
-          sortable: false
+          sortable: false,
         },
         {
           text: "Вход",
-          sortable: false
-        }
-      ]
+          sortable: false,
+        },
+      ],
     };
   },
 
@@ -163,7 +157,7 @@ export default {
       return new Date(date).toLocaleString("ru", {
         day: "numeric",
         month: "numeric",
-        year: "numeric"
+        year: "numeric",
       });
     },
     async getClients() {
@@ -176,7 +170,7 @@ export default {
       } finally {
         this.isLoad = false;
       }
-    }
+    },
   },
 
   created() {
@@ -186,7 +180,7 @@ export default {
   watch: {
     dialog(val) {
       val || this.closeClientInfo();
-    }
-  }
+    },
+  },
 };
 </script>
