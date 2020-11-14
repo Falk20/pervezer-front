@@ -19,14 +19,30 @@
         item-key="id"
         :search="search"
         :loading="isLoad"
+        show-expand
+        single-expand
       >
         <template v-slot:no-data>Нет автомобилей</template>
         <template v-slot:no-results>Нет таких автомобилей</template>
 
-        <template v-slot:item.id="{ item }">
+        <template v-slot:item.year="{ item }">
+          {{ formatDate(item.year) }}
+        </template>
+
+        <template v-slot:item.update="{ item }">
+          <v-btn color="primary" dark @click="editCar(item)">
+            <v-icon dark> mdi-pencil </v-icon>
+          </v-btn>
+        </template>
+
+        <template v-slot:item.remove="{ item }">
           <v-btn color="red" dark @click="removeCar(item)">
             <v-icon dark> mdi-delete </v-icon>
           </v-btn>
+        </template>
+
+        <template v-slot:expanded-item="{ headers, item }">
+          <td :colspan="headers.length">Описание: {{ item.desc }}</td>
         </template>
       </v-data-table>
 
@@ -39,7 +55,12 @@
               </v-btn>
             </div>
           </template>
-          <CreateCarForm @create-car="addNewCar" @close="dialog = false" />
+          <CreateCarForm
+            :editingCar="editingCar"
+            :editingCarIndex="selectedCarIndex"
+            @create-car="addNewCar"
+            @close="close"
+          />
         </v-dialog>
       </template>
     </v-card>
@@ -66,6 +87,19 @@ export default {
       isErr: false,
       dialog: false,
       cars: [],
+      editingCar: {
+        name: "",
+        year: "",
+        vin: "",
+        frame: "",
+        model: "",
+        mark: "",
+        modify: "",
+        gosNumber: "",
+        probeg: "",
+        desc: "",
+      },
+      selectedCarIndex: -1,
       tableHeaders: [
         {
           text: "Название",
@@ -77,23 +111,23 @@ export default {
         },
         {
           text: "Фрейм кузов",
-          value: "kaccount",
+          value: "frame",
         },
         {
           text: "Год производства",
-          value: "kaccount",
+          value: "year",
         },
         {
           text: "Модель",
-          value: "kaccount",
+          value: "model",
         },
         {
           text: "Марка",
-          value: "kaccount",
+          value: "mark",
         },
         {
           text: "Модификация",
-          value: "kaccount",
+          value: "modify",
         },
         {
           text: "Гос номер",
@@ -101,7 +135,7 @@ export default {
         },
         {
           text: "Пробег",
-          value: "kaccount",
+          value: "probeg",
         },
 
         {
@@ -111,7 +145,7 @@ export default {
         },
         {
           text: "",
-          value: "delete",
+          value: "remove",
           sortable: false,
         },
       ],
@@ -119,6 +153,39 @@ export default {
   },
 
   methods: {
+    editCar(item) {
+      this.editingCar = Object.assign({}, item);
+      this.selectedCarIndex = this.cars.indexOf(item);
+      this.dialog = true;
+    },
+
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.editingCar = {
+          name: "",
+          year: "",
+          vin: "",
+          frame: "",
+          model: "",
+          mark: "",
+          modify: "",
+          gosNumber: "",
+          probeg: "",
+          desc: "",
+        };
+        this.selectedCarIndex = -1;
+      });
+    },
+
+    formatDate(date) {
+      if (!date) return null;
+
+      return new Date(date).toLocaleDateString("ru", {
+        year: "numeric",
+      });
+    },
+
     async getCars() {
       try {
         const { data: cars } = await Axios.get(GET_CLIENT_CARS, {

@@ -18,26 +18,36 @@
             />
           </v-col>
           <v-col>
-            <v-text-field
-              v-model="inputs.vin"
-              label="ВИН номер"
+            <YearPicker
+              v-model="inputs.year"
+              label="Год выпуска"
               :rules="[rules.required]"
             />
           </v-col>
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field
-              v-model="inputs.frame"
-              label="Фрейм кузова"
-              :rules="[rules.required]"
-            />
+            <v-switch
+              v-model="isVin"
+              :label="isVin ? 'ВИН номер' : 'Фрейм кузова'"
+              color="info"
+              hide-details
+            ></v-switch>
           </v-col>
           <v-col>
-            <YearPicker
-              v-model="inputs.year"
-              label="Год выпуска"
-              :rules="[rules.required]"
+            <v-text-field
+              v-if="isVin"
+              v-model="inputs.vin"
+              :label="'ВИН номер'"
+              :rules="[rules.required, rules.vin]"
+              counter="17"
+            />
+            <v-text-field
+              v-else
+              v-model="inputs.frame"
+              :label="'Фрейм кузова'"
+              :rules="[rules.required, rules.vin]"
+              counter="17"
             />
           </v-col>
         </v-row>
@@ -69,16 +79,16 @@
             <v-text-field
               v-model="inputs.gosNumber"
               label="Гос номер"
-              :rules="[rules.required]"
+              :rules="[rules.required, rules.gosNumber]"
             />
           </v-col>
         </v-row>
         <v-row>
           <v-col>
             <v-text-field
-              v-model="inputs.probeg"
+              v-model.number="inputs.probeg"
               label="Пробег"
-              :rules="[rules.required]"
+              :rules="[rules.required, rules.probeg]"
             />
           </v-col>
           <v-col>
@@ -97,11 +107,13 @@
               color="primary"
               :loading="sending"
             >
-              Создать
+              {{ isNewCar ? "Добавить" : "Обновить" }}
             </v-btn>
           </v-col>
           <v-col>
-            <v-btn width="100%" type="button" @click="close">Отменить</v-btn>
+            <v-btn width="100%" type="button" @click.prevent="close"
+              >Отменить</v-btn
+            >
           </v-col>
         </v-row>
       </v-container>
@@ -113,7 +125,8 @@
         dismissible
         transition="scale-transition"
       >
-        Не удалось добавить адрес
+        Не удалось
+        {{ isNewCar ? "добавить" : "обновить" }} автомобиль
       </v-alert>
     </v-form>
   </v-card>
@@ -121,7 +134,7 @@
 
 <script>
 import Axios from "axios";
-import { CREATE_CAR } from "@/api";
+import { CREATE_CAR, UPDATE_CAR } from "@/api";
 
 import YearPicker from "./YearPicker";
 
@@ -132,15 +145,19 @@ export default {
     YearPicker,
   },
 
+  props: ["editingCar", "editingCarIndex"],
+
   data() {
     return {
       isValid: true,
 
+      isVin: true,
+
       inputs: {
         name: "",
+        year: "",
         vin: "",
         frame: "",
-        year: "",
         model: "",
         mark: "",
         modify: "",
@@ -152,8 +169,26 @@ export default {
       isErr: false,
       rules: {
         required: (v) => !!v || "Обязательное поле",
+        gosNumber: (value) => {
+          const pattern = /^[a-zA-Z]{1}[\d]{3}[a-zA-Z]{2}[\d]{3}$/;
+          return pattern.test(value) || "Гос номер невалиден";
+        },
+        vin: (value) => {
+          const pattern = /^[a-zA-Z0-9]{17}$/;
+          return pattern.test(value) || "ВИН невалиден";
+        },
+        probeg: (value) => {
+          const pattern = /^[0-9]+$/;
+          return pattern.test(value) || "Пробег невалиден";
+        },
       },
     };
+  },
+
+  computed: {
+    isNewCar() {
+      return this.editingCarIndex === -1;
+    },
   },
 
   methods: {
@@ -164,10 +199,17 @@ export default {
         if (this.isValid) {
           this.sending = true;
 
-          const { status } = await Axios.post(CREATE_CAR, {
+          let link = this.isNewCar ? CREATE_CAR : UPDATE_CAR;
+          let postBody = {
             ...this.inputs,
             clientId: this.$route.params.clientID,
-          });
+          };
+
+          if (!this.isNewCar) {
+            postBody.carId = this.inputs.id;
+          }
+
+          const { status } = await Axios.post(link, postBody);
 
           if (status === 200) {
             this.$emit("create-car");
@@ -183,9 +225,25 @@ export default {
     },
     close() {
       this.$emit("close");
-      for (let key in this.inputs) {
-        this.inputs[key] = "";
+      // for (let key in this.inputs) {
+      //   this.inputs[key] = "";
+      // }
+    },
+  },
+
+  watch: {
+    isVin(v) {
+      if (v) {
+        this.inputs.frame = "";
+      } else {
+        this.inputs.vin = "";
       }
+    },
+    editingCar: {
+      handler: function setDefault(v) {
+        this.inputs = Object.assign({}, v);
+      },
+      immediate: true,
     },
   },
 };
