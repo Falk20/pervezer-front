@@ -1,11 +1,23 @@
 <template>
-  <v-select
-    v-model="selected"
-    :items="profiles"
-    item-text="name"
-    item-value="id"
-    :label="label"
-  ></v-select>
+  <v-row>
+    <v-col>
+      <v-select
+        v-model="selected"
+        :items="profiles"
+        item-text="name"
+        item-value="id"
+        :label="label"
+      ></v-select>
+    </v-col>
+    <v-col>
+      <v-text-field
+        :value="selectedProfile ? selectedProfile.surchrage : '0'"
+        type="number"
+        label="Наценка, %"
+        disabled
+      />
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -31,6 +43,10 @@ export default {
       set(v) {
         this.$emit("input", v);
       },
+    },
+    selectedProfile() {
+      const vm = this;
+      return this.profiles.find((profile) => (profile.id = vm.value));
     },
   },
 

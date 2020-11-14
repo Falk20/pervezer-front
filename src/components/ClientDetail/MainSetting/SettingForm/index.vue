@@ -18,12 +18,6 @@
 
       <v-row>
         <v-col>
-          <v-text-field label="Организация" disabled />
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col>
           <v-text-field
             v-model="editedSetting.email"
             :rules="[rules.required, rules.email]"
@@ -31,9 +25,6 @@
             required
           />
         </v-col>
-      </v-row>
-
-      <v-row>
         <v-col>
           <v-text-field
             v-model="editedSetting.password"
@@ -47,22 +38,7 @@
         </v-col>
       </v-row>
 
-      <v-row>
-        <v-col>
-          <ProfileSelect label="Профиль" v-model="editedSetting.profileId" />
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col>
-          <v-text-field
-            v-model="editedSetting.surCharge"
-            type="number"
-            label="Наценка, %"
-            disabled
-          />
-        </v-col>
-      </v-row>
+      <ProfileSelect label="Профиль" v-model="editedSetting.profileId" />
 
       <v-row>
         <v-col>
@@ -110,18 +86,16 @@
             hide-details
           ></v-switch>
         </v-col>
-      </v-row>
-
-      <v-row>
         <v-col>
           <v-text-field
             v-model="editedSetting.status"
-            :rules="[rules.required]"
             label="Статус"
-            required
+            disabled
           />
         </v-col>
       </v-row>
+
+      <v-row> </v-row>
 
       <v-row>
         <v-col>
@@ -142,9 +116,6 @@
             required
           />
         </v-col>
-      </v-row>
-
-      <v-row>
         <v-col>
           <v-text-field
             v-model="editedSetting.uRfacename"
@@ -212,7 +183,7 @@ export default {
 
   components: {
     DatePicker,
-    ProfileSelect
+    ProfileSelect,
   },
 
   props: ["clientSettings"],
@@ -227,17 +198,17 @@ export default {
       showPass: false,
 
       rules: {
-        required: v => !!v || "Обязательное поле",
-        email: value => {
+        required: (v) => !!v || "Обязательное поле",
+        email: (value) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "email невалиден";
         },
-        minLength: v => v.length >= 8 || "Не менее 8 символов",
-        phone: value => {
+        minLength: (v) => v.length >= 8 || "Не менее 8 символов",
+        phone: (value) => {
           const pattern = /^((8|\+7)[- ]?)?(\(?\d{3}\)?[- ]?)?[\d\- ]{5,10}$/;
           return pattern.test(value) || "Телефон невалиден";
-        }
-      }
+        },
+      },
     };
   },
 
@@ -250,7 +221,7 @@ export default {
     },
     saveDisabled() {
       return !this.haveChanges;
-    }
+    },
   },
 
   methods: {
@@ -275,7 +246,7 @@ export default {
     },
     resetForm() {
       this.editedSetting = Object.assign({}, this.clientSettings);
-    }
-  }
+    },
+  },
 };
 </script>

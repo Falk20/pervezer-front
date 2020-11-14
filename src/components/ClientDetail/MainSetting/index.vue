@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column align-center">
     <p v-if="isLoad">Load...</p>
-    <v-card v-else width="400" class="mb-4">
+    <v-card v-else class="mb-4">
       <v-card-title>{{ clientSettings.fio }}</v-card-title>
       <SettingForm
         :clientSettings="clientSettings"
@@ -30,7 +30,7 @@ export default {
   name: "client-details-setting",
 
   components: {
-    SettingForm
+    SettingForm,
   },
 
   data() {
@@ -38,14 +38,14 @@ export default {
       isLoad: true,
       isErr: false,
       isSuccess: false,
-      clientSettings: {}
+      clientSettings: {},
     };
   },
 
   computed: {
     clientID() {
       return this.$route.params.clientID;
-    }
+    },
   },
 
   methods: {
@@ -53,21 +53,21 @@ export default {
       try {
         const { data: clientSettings } = await Axios.get(GET_CLIENT_DETAILS, {
           params: {
-            id: this.clientID
-          }
+            id: this.clientID,
+          },
         });
 
-        this.clientSettings = this.oldValueForCheck = clientSettings;
+        this.clientSettings = clientSettings;
       } catch {
         this.isErr = true;
       } finally {
         this.isLoad = false;
       }
-    }
+    },
   },
 
   created() {
     this.getClientSettings();
-  }
+  },
 };
 </script>
