@@ -72,7 +72,7 @@ export default {
       tableHeaders: [
         {
           text: "Офис",
-          value: "name",
+          value: "office",
           width: "100%",
         },
         {
