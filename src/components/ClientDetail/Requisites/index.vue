@@ -115,7 +115,7 @@ export default {
     async removeRequisite(item) {
       try {
         const { status } = await Axios.post(REMOVE_REQUISITE, {
-          requisiteId: item.id,
+          rekvizitId: item.id,
         });
 
         if (status === 200) {

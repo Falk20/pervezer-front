@@ -14,14 +14,16 @@
             <v-text-field
               v-model="inputs.kaccount"
               label="Клиентский счет"
-              :rules="[rules.required]"
+              :rules="[rules.required, rules.account]"
+              counter="18"
             />
           </v-col>
           <v-col>
             <v-text-field
               v-model="inputs.raccount"
               label="Расчетный счет"
-              :rules="[rules.required]"
+              :rules="[rules.required, rules.account]"
+              counter="18"
             />
           </v-col>
         </v-row>
@@ -37,7 +39,8 @@
             <v-text-field
               v-model="inputs.bankBIC"
               label="БИК банка"
-              :rules="[rules.required]"
+              :rules="[rules.required, rules.bic]"
+              counter="9"
             />
           </v-col>
         </v-row>
@@ -92,12 +95,20 @@ export default {
       isErr: false,
       rules: {
         required: (v) => !!v || "Обязательное поле",
+        account: (value) => {
+          const pattern = /^[\d]{18}$/;
+          return pattern.test(value) || "Номер счета невалиден";
+        },
+        bic: (value) => {
+          const pattern = /^[\d]{9}$/;
+          return pattern.test(value) || "БИК невалиден";
+        },
       },
     };
   },
 
   methods: {
-    async saveNewIp() {
+    async saveNewRequisite() {
       try {
         this.$refs.form.validate();
 
