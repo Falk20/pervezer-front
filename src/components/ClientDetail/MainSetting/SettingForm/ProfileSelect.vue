@@ -10,7 +10,7 @@
 
 <script>
 import Axios from "axios";
-import { GET_PROFILES } from "@/api";
+import { GET_PROFILES_TO_UPDATE } from "@/api";
 
 export default {
   name: "profile-select",
@@ -19,7 +19,7 @@ export default {
 
   data() {
     return {
-      profiles: []
+      profiles: [],
     };
   },
 
@@ -30,20 +30,20 @@ export default {
       },
       set(v) {
         this.$emit("input", v);
-      }
-    }
+      },
+    },
   },
 
   methods: {
     async getProfiles() {
-      const { data: profiles } = await Axios.get(GET_PROFILES);
+      const { data: profiles } = await Axios.get(GET_PROFILES_TO_UPDATE);
 
       this.profiles = profiles;
-    }
+    },
   },
 
   created() {
     this.getProfiles();
-  }
+  },
 };
 </script>
