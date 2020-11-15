@@ -48,6 +48,10 @@ export default {
           label: "Работники",
           to: `/client-detail/${this.$route.params.clientID}/employees`,
         },
+        {
+          label: "Корзина",
+          to: `/client-detail/${this.$route.params.clientID}/cart`,
+        },
       ],
     };
   },

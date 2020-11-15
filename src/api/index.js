@@ -30,3 +30,9 @@ export const UPDATE_CAR = addIP("Car/update-car");
 export const GET_CLIENT_EMPLOYEES = addIP("Client/get-client-employees");
 export const CREATE_EMPLOYEE = addIP("Employee/create-employee");
 export const REMOVE_EMPLOYEE = addIP("Employee/remove-employee");
+
+export const GET_CLIENT_CART = addIP("Client/get-client-cart");
+export const REMOVE_CART_ITEM = addIP("Cart/remove-cart-item");
+export const CREATE_CART_ITEM = addIP("Cart/create-cart-item");
+export const GET_PRODUCTS = addIP("Product/get-products");
+export const CREATE_CONTRACT = addIP("Contract/create-contract");
