@@ -1,10 +1,10 @@
 <template>
   <v-card>
-    <v-card-title> Новый профиль </v-card-title>
+    <v-card-title> Новая скидка </v-card-title>
 
     <v-form
       ref="form"
-      @submit.prevent="saveNewProfile"
+      @submit.prevent="saveNewDiscount"
       class="pa-1"
       v-model="isValid"
     >
@@ -12,8 +12,9 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="inputs.name"
-              label="Название"
+              v-model.number="inputs.discountStarts"
+              label="Минимальная цена для скидки"
+              type="number"
               :rules="[rules.required]"
             />
           </v-col>
@@ -21,16 +22,11 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model.number="inputs.surcharge"
-              label="Наценка, %"
+              v-model.number="inputs.discountPersent"
+              label="Скидка, %"
               type="number"
-              :rules="[rules.required, rules.surcharge]"
+              :rules="[rules.required, rules.discount]"
             />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-color-picker v-model="inputs.color" hide-canvas></v-color-picker>
           </v-col>
         </v-row>
         <v-row>
@@ -59,7 +55,7 @@
         dismissible
         transition="scale-transition"
       >
-        Не удалось добавить профиль
+        Не удалось добавить скидку
       </v-alert>
     </v-form>
   </v-card>
@@ -67,48 +63,51 @@
 
 <script>
 import Axios from "axios";
-import { CREATE_PROFILE } from "@/api";
+import { CREATE_DISCOUNT } from "@/api";
 
 export default {
-  name: "client-profile-create-form",
+  name: "client-discount-create-form",
 
   components: {},
+
+  props: ["profileId"],
 
   data() {
     return {
       isValid: true,
 
       inputs: {
-        name: "",
-        surcharge: "",
-        color: "#FF0000",
+        discountStarts: "",
+        discountPersent: "",
       },
       default: {
-        name: "",
-        surcharge: "",
-        color: "#FF0000",
+        discountStarts: "",
+        discountPersent: "",
       },
       sending: false,
       isErr: false,
       rules: {
         required: (v) => !!v || "Обязательное поле",
-        surcharge: (v) => (v >= 0 && v <= 100) || "От 0 до 100",
+        discount: (v) => (v >= 0 && v <= 100) || "От 0 до 100",
       },
     };
   },
 
   methods: {
-    async saveNewProfile() {
+    async saveNewDiscount() {
       try {
         this.$refs.form.validate();
 
         if (this.isValid) {
           this.sending = true;
 
-          const { status } = await Axios.post(CREATE_PROFILE, this.inputs);
+          const { status } = await Axios.post(CREATE_DISCOUNT, {
+            ...this.inputs,
+            profileId: this.profileId,
+          });
 
           if (status === 200) {
-            this.$emit("create-profile");
+            this.$emit("create-discount");
 
             this.close();
           }

@@ -33,7 +33,12 @@
 
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length">
-            <DiscountList :discounts="item.discounts" />
+            <DiscountList
+              :discounts="item.discounts"
+              :profileId="item.profileId"
+              @delete-discount="removeDiscount"
+              @update-table="updateTable"
+            />
           </td>
         </template>
       </v-data-table>
@@ -146,8 +151,20 @@ export default {
           throw new Error();
         }
       } catch {
-        alert("Не удалось удалить ip");
+        alert("Не удалось удалить профиль");
       }
+    },
+
+    removeDiscount({ discount, profileId }) {
+      const profileIndex = this.profiles.findIndex(
+        (profile) => profile.profileId === profileId
+      );
+
+      const discountIndex = this.profiles[profileIndex].discounts.indexOf(
+        discount
+      );
+
+      this.profiles[profileIndex].discounts.splice(discountIndex, 1);
     },
 
     updateTable() {
