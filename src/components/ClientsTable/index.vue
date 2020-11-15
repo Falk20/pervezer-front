@@ -12,7 +12,7 @@
         class="elevation-1"
         :loading="isLoad"
       >
-        <template v-slot:top>
+        <!-- <template v-slot:top>
           <v-dialog v-model="dialog" max-width="500px">
             <v-card>
               <v-card-title>
@@ -20,7 +20,7 @@
               </v-card-title>
             </v-card>
           </v-dialog>
-        </template>
+        </template> -->
 
         <template v-slot:item.organization> - </template>
 
@@ -33,11 +33,11 @@
         <template v-slot:item.birthDate="{ item }">
           {{ getCurrentDate(item.birthDate) }}
         </template>
-        <template v-slot:item.clientCard="{ item }">
+        <!-- <template v-slot:item.clientCard="{ item }">
           <v-btn icon @click="openClientInfo(item)">
             <v-icon> mdi-account-details </v-icon>
           </v-btn>
-        </template>
+        </template> -->
         <template v-slot:item.clientEdit="{ item }">
           <v-btn icon :to="`/client-detail/${item.id}`">
             <v-icon> mdi-account-edit </v-icon>
@@ -61,8 +61,8 @@ export default {
       isErr: false,
       clients: [],
       dialog: false,
-      openedItem: {},
-      openedIndex: -1,
+      // openedItem: {},
+      // openedIndex: -1,
       selected: [],
       tableHeaders: [
         {
@@ -141,18 +141,18 @@ export default {
   },
 
   methods: {
-    openClientInfo(client) {
-      this.openedIndex = this.clients.indexOf(client);
-      this.openedItem = Object.assign({}, client);
-      this.dialog = true;
-    },
-    closeClientInfo() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.openedItem = {};
-        this.openedIndex = -1;
-      });
-    },
+    // openClientInfo(client) {
+    //   this.openedIndex = this.clients.indexOf(client);
+    //   this.openedItem = Object.assign({}, client);
+    //   this.dialog = true;
+    // },
+    // closeClientInfo() {
+    //   this.dialog = false;
+    //   this.$nextTick(() => {
+    //     this.openedItem = {};
+    //     this.openedIndex = -1;
+    //   });
+    // },
     getCurrentDate(date) {
       return new Date(date).toLocaleString("ru", {
         day: "numeric",
@@ -170,6 +170,9 @@ export default {
       } finally {
         this.isLoad = false;
       }
+    },
+    updateTable() {
+      this.getClients();
     },
   },
 
