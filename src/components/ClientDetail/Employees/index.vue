@@ -15,16 +15,16 @@
 
       <v-data-table
         :headers="tableHeaders"
-        :items="requisites"
+        :items="employees"
         item-key="id"
         :search="search"
         :loading="isLoad"
       >
-        <template v-slot:no-data>Нет реквизитов</template>
-        <template v-slot:no-results>Нет таких реквизитов</template>
+        <template v-slot:no-data>Нет работников</template>
+        <template v-slot:no-results>Нет таких работников</template>
 
         <template v-slot:item.id="{ item }">
-          <v-btn color="red" dark @click="removeRequisite(item)">
+          <v-btn color="red" dark @click="removeEmployee(item)">
             <v-icon dark> mdi-delete </v-icon>
           </v-btn>
         </template>
@@ -35,12 +35,12 @@
           <template v-slot:activator="{ on, attrs }">
             <div class="text-center pt-2">
               <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-                Добавить реквизит
+                Добавить работника
               </v-btn>
             </div>
           </template>
-          <CreateRequisiteForm
-            @create-requisite="addNewRequisite"
+          <CreateEmployeeForm
+            @create-employee="addNewEmployee"
             @close="dialog = false"
           />
         </v-dialog>
@@ -50,16 +50,16 @@
 </template>
 
 <script>
-import { GET_CLIENT_REQUISITES, REMOVE_REQUISITE } from "@/api";
+import { GET_CLIENT_EMPLOYEES, REMOVE_EMPLOYEE } from "@/api";
 import Axios from "axios";
 
-import CreateRequisiteForm from "./CreateRequisiteForm";
+import CreateEmployeeForm from "./CreateEmployeeForm";
 
 export default {
-  name: "client-details-requisites",
+  name: "client-details-employees",
 
   components: {
-    CreateRequisiteForm,
+    CreateEmployeeForm,
   },
 
   data() {
@@ -68,23 +68,23 @@ export default {
       isLoad: true,
       isErr: false,
       dialog: false,
-      requisites: [],
+      employees: [],
       tableHeaders: [
         {
-          text: "Клиентский счет",
-          value: "kaccount",
+          text: "ФИО",
+          value: "fio",
         },
         {
-          text: "Расчетный счет",
-          value: "raccount",
+          text: "Должность",
+          value: "rank",
         },
         {
-          text: "Название банка",
-          value: "bankName",
+          text: "email",
+          value: "email",
         },
         {
-          text: "БИК банка",
-          value: "bankBIC",
+          text: "Телефон",
+          value: "phone",
         },
         {
           text: "",
@@ -96,15 +96,15 @@ export default {
   },
 
   methods: {
-    async getRequisites() {
+    async getEmployees() {
       try {
-        const { data: requisites } = await Axios.get(GET_CLIENT_REQUISITES, {
+        const { data: employees } = await Axios.get(GET_CLIENT_EMPLOYEES, {
           params: {
             id: this.$route.params.clientID,
           },
         });
 
-        this.requisites = requisites;
+        this.employees = employees;
       } catch {
         this.isErr = true;
       } finally {
@@ -112,16 +112,16 @@ export default {
       }
     },
 
-    async removeRequisite(item) {
+    async removeEmployee(item) {
       try {
-        const { status } = await Axios.post(REMOVE_REQUISITE, {
-          rekvizitId: item.id,
+        const { status } = await Axios.post(REMOVE_EMPLOYEE, {
+          employeeId: item.id,
         });
 
         if (status === 200) {
-          const itemIndex = this.requisites.indexOf(item);
+          const itemIndex = this.employees.indexOf(item);
 
-          this.requisites.splice(itemIndex, 1);
+          this.employees.splice(itemIndex, 1);
         } else {
           throw new Error();
         }
@@ -130,13 +130,13 @@ export default {
       }
     },
 
-    addNewRequisite() {
-      this.getRequisites();
+    addNewEmployee() {
+      this.getEmployees();
     },
   },
 
   created() {
-    this.getRequisites();
+    this.getEmployees();
   },
 };
 </script>

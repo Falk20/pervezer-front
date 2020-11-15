@@ -27,3 +27,6 @@ export const GET_CLIENT_CARS = addIP("Client/get-client-cars");
 export const CREATE_CAR = addIP("Car/create-car");
 export const REMOVE_CAR = addIP("Car/remove-car");
 export const UPDATE_CAR = addIP("Car/update-car");
+export const GET_CLIENT_EMPLOYEES = addIP("Client/get-client-employees");
+export const CREATE_EMPLOYEE = addIP("Employee/create-employee");
+export const REMOVE_EMPLOYEE = addIP("Employee/remove-employee");

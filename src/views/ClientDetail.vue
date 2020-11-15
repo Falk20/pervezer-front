@@ -44,6 +44,10 @@ export default {
           label: "Автомобили",
           to: `/client-detail/${this.$route.params.clientID}/garage`,
         },
+        {
+          label: "Работники",
+          to: `/client-detail/${this.$route.params.clientID}/employees`,
+        },
       ],
     };
   },
