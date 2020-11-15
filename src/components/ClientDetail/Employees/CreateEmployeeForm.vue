@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Новый реквизит</v-card-title>
+    <v-card-title>Новый работник</v-card-title>
 
     <v-form
       ref="form"
