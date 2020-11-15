@@ -1,10 +1,10 @@
 <template>
   <v-card>
-    <v-card-title> Новый офис </v-card-title>
+    <v-card-title> Новый профиль </v-card-title>
 
     <v-form
       ref="form"
-      @submit.prevent="saveNewOffice"
+      @submit.prevent="saveNewCar"
       class="pa-1"
       v-model="isValid"
     >
@@ -12,10 +12,25 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="office"
-              label="Офис"
+              v-model="inputs.name"
+              label="Название"
               :rules="[rules.required]"
             />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-text-field
+              v-model.number="inputs.surcharge"
+              label="Наценка, %"
+              type="number"
+              :rules="[rules.required, rules.surcharge]"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-color-picker v-model="inputs.color" hide-canvas></v-color-picker>
           </v-col>
         </v-row>
         <v-row>
@@ -26,11 +41,13 @@
               color="primary"
               :loading="sending"
             >
-              Создать
+              Добавить
             </v-btn>
           </v-col>
           <v-col>
-            <v-btn width="100%" type="button" @click="close">Отменить</v-btn>
+            <v-btn width="100%" type="button" @click.prevent="close"
+              >Отменить</v-btn
+            >
           </v-col>
         </v-row>
       </v-container>
@@ -42,7 +59,7 @@
         dismissible
         transition="scale-transition"
       >
-        Не удалось добавить офис
+        Не удалось добавить профиль
       </v-alert>
     </v-form>
   </v-card>
@@ -50,38 +67,50 @@
 
 <script>
 import Axios from "axios";
-import { CREATE_OFFICE } from "@/api";
+import { CREATE_PROFILE } from "@/api";
 
 export default {
-  name: "client-detail-office-create-form",
+  name: "client-detail-car-create-form",
+
+  components: {},
+
+  props: ["editingCar", "editingCarIndex"],
 
   data() {
     return {
       isValid: true,
-      office: "",
+
+      inputs: {
+        name: "",
+        surcharge: "",
+        color: "#FF0000",
+      },
+      default: {
+        name: "",
+        surcharge: "",
+        color: "#FF0000",
+      },
       sending: false,
       isErr: false,
       rules: {
         required: (v) => !!v || "Обязательное поле",
+        surcharge: (v) => (v >= 0 && v <= 100) || "От 0 до 100",
       },
     };
   },
 
   methods: {
-    async saveNewOffice() {
+    async saveNewCar() {
       try {
         this.$refs.form.validate();
 
         if (this.isValid) {
           this.sending = true;
 
-          const { status } = await Axios.post(CREATE_OFFICE, {
-            client: this.$route.params.clientID,
-            name: this.office,
-          });
+          const { status } = await Axios.post(CREATE_PROFILE, this.inputs);
 
           if (status === 200) {
-            this.$emit("create-office");
+            this.$emit("create-profile");
 
             this.close();
           }
@@ -94,7 +123,7 @@ export default {
     },
     close() {
       this.$emit("close");
-      this.office = "";
+      this.inputs = Object.assign({}, this.default);
       this.$refs.form.resetValidation();
     },
   },

@@ -1,8 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>
-      Новый IP
-    </v-card-title>
+    <v-card-title> Новый IP </v-card-title>
 
     <v-form
       ref="form"
@@ -64,12 +62,12 @@ export default {
       sending: false,
       isErr: false,
       rules: {
-        required: v => !!v || "Обязательное поле",
-        ip: value => {
+        required: (v) => !!v || "Обязательное поле",
+        ip: (value) => {
           const pattern = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
           return pattern.test(value) || "ip невалиден";
-        }
-      }
+        },
+      },
     };
   },
 
@@ -83,7 +81,7 @@ export default {
 
           const { status } = await Axios.post(CREATE_IP, {
             clientId: this.$route.params.clientID,
-            ip: this.ip
+            ip: this.ip,
           });
 
           if (status === 200) {
@@ -101,7 +99,8 @@ export default {
     close() {
       this.$emit("close");
       this.ip = "";
-    }
-  }
+      this.$refs.form.resetValidation();
+    },
+  },
 };
 </script>

@@ -40,6 +40,7 @@ const routes = [
       },
       {
         path: "profile",
+        component: () => import("@/components/Client/Profiles"),
       },
       {
         path: "guest",

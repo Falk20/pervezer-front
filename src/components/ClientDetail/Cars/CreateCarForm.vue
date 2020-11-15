@@ -225,9 +225,7 @@ export default {
     },
     close() {
       this.$emit("close");
-      // for (let key in this.inputs) {
-      //   this.inputs[key] = "";
-      // }
+      this.$refs.form.resetValidation();
     },
   },
 

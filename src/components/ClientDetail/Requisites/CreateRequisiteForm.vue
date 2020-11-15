@@ -137,6 +137,7 @@ export default {
       for (let key in this.inputs) {
         this.inputs[key] = "";
       }
+      this.$refs.form.resetValidation();
     },
   },
 };
