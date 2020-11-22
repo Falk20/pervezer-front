@@ -130,35 +130,9 @@ export default {
           value: "birthDate",
         },
         {
-          text: "Комментарий менеджера",
-          sortable: false,
-        },
-        {
-          text: "Теги",
-          sortable: false,
-        },
-        {
-          text: "Карточка клиента",
-          value: "clientCard",
-          align: "center",
-          sortable: false,
-        },
-        {
           text: "Ред.",
           value: "clientEdit",
           align: "center",
-          sortable: false,
-        },
-        {
-          text: "Цены",
-          sortable: false,
-        },
-        {
-          text: "Xls",
-          sortable: false,
-        },
-        {
-          text: "Вход",
           sortable: false,
         },
       ],

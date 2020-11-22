@@ -13,7 +13,7 @@ export default {
   name: "client",
 
   components: {
-    TabsMenu
+    TabsMenu,
   },
 
   data() {
@@ -22,40 +22,24 @@ export default {
       tabs: [
         {
           label: "Клиенты",
-          to: "/client"
+          to: "/client",
         },
         {
           label: "Профили",
-          to: "/client/profile"
+          to: "/client/profile",
         },
         {
           label: "Гость",
-          to: "/client/guest"
+          to: "/client/guest",
         },
-        {
-          label: "Скидки на заказ",
-          to: "/client/sale"
-        },
-        {
-          label: "Статусы",
-          to: "/client/status"
-        },
-        {
-          label: "Франчайзи",
-          to: "/client/franchisee"
-        },
-        {
-          label: "SMS-рассылка",
-          to: "/client/sms"
-        }
-      ]
+      ],
     };
   },
 
   computed: {
     tabsLabels() {
-      return this.tabs.map(tab => tab.label);
-    }
-  }
+      return this.tabs.map((tab) => tab.label);
+    },
+  },
 };
 </script>

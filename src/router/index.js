@@ -45,18 +45,6 @@ const routes = [
       {
         path: "guest",
       },
-      {
-        path: "sale",
-      },
-      {
-        path: "status",
-      },
-      {
-        path: "franchisee",
-      },
-      {
-        path: "sms",
-      },
     ],
   },
   {
