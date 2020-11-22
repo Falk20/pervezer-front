@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column align-center">
     <p v-if="isErr">Error</p>
-    <v-card v-else>
+    <v-card width="100%" v-else>
       <v-card-title>
         <v-text-field
           v-model="search"

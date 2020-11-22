@@ -5,14 +5,16 @@
         cols="12"
         sm="6"
         md="4"
-        lg="4"
+        lg="3"
         v-for="discount in discounts"
         :key="discount.discountId"
       >
         <v-card>
           <v-card-title>
-            Скидка {{ discount.discountPersent }}% при заказе от
-            {{ discount.discountStarts }}
+            <p class="word-break">
+              Скидка {{ discount.discountPersent }}% при заказе от
+              {{ discount.discountStarts }}
+            </p>
           </v-card-title>
           <v-btn color="red" dark @click="removeDiscount(discount)">
             <v-icon dark> mdi-delete </v-icon>
@@ -24,7 +26,7 @@
         cols="12"
         sm="6"
         md="4"
-        lg="4"
+        lg="3"
       >
         <template>
           <v-dialog v-model="dialog" max-width="500px">
@@ -102,3 +104,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.word-break {
+  word-break: break-word;
+}
+</style>
