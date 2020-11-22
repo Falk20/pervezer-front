@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Новый работник</v-card-title>
+    <v-card-title>Новый сотрудник</v-card-title>
 
     <v-form
       ref="form"
@@ -65,7 +65,7 @@
         dismissible
         transition="scale-transition"
       >
-        Не удалось добавить работника
+        Не удалось добавить сотрудника
       </v-alert>
     </v-form>
   </v-card>

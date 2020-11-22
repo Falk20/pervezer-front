@@ -32,10 +32,10 @@ export default {
           label: "Адреса",
           to: `/client-detail/${this.$route.params.clientID}/addresses`,
         },
-        {
-          label: "Офисы",
-          to: `/client-detail/${this.$route.params.clientID}/offices`,
-        },
+        // {
+        //   label: "Офисы",
+        //   to: `/client-detail/${this.$route.params.clientID}/offices`,
+        // },
         {
           label: "Ревизиты",
           to: `/client-detail/${this.$route.params.clientID}/requisites`,
@@ -45,7 +45,7 @@ export default {
           to: `/client-detail/${this.$route.params.clientID}/garage`,
         },
         {
-          label: "Работники",
+          label: "Сотрудники",
           to: `/client-detail/${this.$route.params.clientID}/employees`,
         },
         {

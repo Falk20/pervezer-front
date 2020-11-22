@@ -20,8 +20,8 @@
         :search="search"
         :loading="isLoad"
       >
-        <template v-slot:no-data>Нет работников</template>
-        <template v-slot:no-results>Нет таких работников</template>
+        <template v-slot:no-data>Нет сотрудников</template>
+        <template v-slot:no-results>Нет таких сотрудников</template>
 
         <template v-slot:item.id="{ item }">
           <v-btn color="red" dark @click="removeEmployee(item)">
@@ -35,7 +35,7 @@
           <template v-slot:activator="{ on, attrs }">
             <div class="text-center pt-2">
               <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-                Добавить работника
+                Добавить сотрудника
               </v-btn>
             </div>
           </template>

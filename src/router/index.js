@@ -44,6 +44,7 @@ const routes = [
       },
       {
         path: "guest",
+        component: () => import("@/components/Client/Guests"),
       },
     ],
   },
@@ -65,10 +66,10 @@ const routes = [
         path: "addresses",
         component: () => import("@/components/ClientDetail/Addresses"),
       },
-      {
-        path: "offices",
-        component: () => import("@/components/ClientDetail/Offices"),
-      },
+      // {
+      //   path: "offices",
+      //   component: () => import("@/components/ClientDetail/Offices"),
+      // },
       {
         path: "requisites",
         component: () => import("@/components/ClientDetail/Requisites"),
