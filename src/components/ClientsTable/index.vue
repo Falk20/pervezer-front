@@ -93,6 +93,7 @@ export default {
         {
           text: "Код клиента",
           value: "id",
+          width: 200,
         },
         {
           text: "Профиль",
@@ -134,6 +135,7 @@ export default {
           value: "clientEdit",
           align: "center",
           sortable: false,
+          width: 40,
         },
       ],
     };
