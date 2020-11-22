@@ -29,7 +29,7 @@ export default {
           to: "/client/profile",
         },
         {
-          label: "Гость",
+          label: "Гости",
           to: "/client/guest",
         },
       ],

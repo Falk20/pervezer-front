@@ -21,7 +21,7 @@ export default {
       tab: null,
       tabs: [
         {
-          label: "Финансы",
+          label: "Платежи",
           to: "/finance",
         },
       ],

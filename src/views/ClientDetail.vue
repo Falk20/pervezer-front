@@ -41,7 +41,7 @@ export default {
           to: `/client-detail/${this.$route.params.clientID}/requisites`,
         },
         {
-          label: "Автомобили",
+          label: "Гараж",
           to: `/client-detail/${this.$route.params.clientID}/garage`,
         },
         {
