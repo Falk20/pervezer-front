@@ -119,7 +119,7 @@ export default {
           value: "totalRealCost",
         },
         {
-          text: "Срок доставки",
+          text: "Доставка, дни",
           value: "deliveryDuration",
         },
         {

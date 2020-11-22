@@ -47,3 +47,6 @@ export const CREATE_DISCOUNT = addIP("Discount/create-discount");
 export const REMOVE_DISCOUNT = addIP("Discount/remove-discount");
 
 export const GET_PAYMENTS = addIP("Payment/get-all-payments");
+
+export const GET_CLIENT_ORDERS = addIP("Client/get-client-orders");
+export const GET_ORDERS = addIP("Order/get-orders");
