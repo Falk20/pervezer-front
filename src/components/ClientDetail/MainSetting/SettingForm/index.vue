@@ -75,6 +75,16 @@
             required
           />
         </v-col>
+        <v-col>
+          <v-select
+            v-model="editedSetting.officeId"
+            :items="offices"
+            item-text="office"
+            item-value="id"
+            label="Офис"
+            :rules="[rules.required]"
+          />
+        </v-col>
       </v-row>
 
       <v-row>
@@ -95,14 +105,39 @@
         </v-col>
       </v-row>
 
-      <v-row> </v-row>
-
       <v-row>
         <v-col>
           <DatePicker
             v-model="editedSetting.registerDate"
             label="Регистрация"
             disabled
+          />
+        </v-col>
+        <v-col>
+          <v-text-field
+            v-model="editedSetting.inn"
+            label="ИНН"
+            :rules="[rules.required]"
+            required
+          />
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <v-text-field
+            v-model="editedSetting.ogrn"
+            :rules="[rules.required]"
+            label="ОГРН"
+            required
+          />
+        </v-col>
+        <v-col>
+          <v-text-field
+            v-model="editedSetting.okpo"
+            :rules="[rules.required]"
+            label="ОКПО"
+            required
           />
         </v-col>
       </v-row>
@@ -173,7 +208,7 @@
 
 <script>
 import Axios from "axios";
-import { UPDATE_CLIENT_SETTING } from "@/api";
+import { UPDATE_CLIENT_SETTING, GET_OFFICES } from "@/api";
 
 import DatePicker from "./DatePicker";
 import ProfileSelect from "./ProfileSelect";
@@ -194,6 +229,8 @@ export default {
       isSuccess: false,
       isErr: false,
       editedSetting: Object.assign({}, this.clientSettings),
+
+      offices: [],
 
       showPass: false,
 
@@ -247,6 +284,20 @@ export default {
     resetForm() {
       this.editedSetting = Object.assign({}, this.clientSettings);
     },
+
+    async getOffices() {
+      try {
+        const { data: offices } = await Axios.get(GET_OFFICES);
+
+        this.offices = offices;
+      } catch {
+        this.isNotOffices = true;
+      }
+    },
+  },
+
+  created() {
+    this.getOffices();
   },
 };
 </script>
