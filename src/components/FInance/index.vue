@@ -74,7 +74,6 @@ export default {
     async getPayments() {
       try {
         const { data: payments } = await Axios.get(GET_PAYMENTS);
-
         this.payments = payments;
       } catch {
         this.isErr = true;

@@ -52,6 +52,10 @@ export default {
           label: "Корзина",
           to: `/client-detail/${this.$route.params.clientID}/cart`,
         },
+        {
+          label: "Заказы",
+          to: `/client-detail/${this.$route.params.clientID}/orders`,
+        },
       ],
     };
   },
