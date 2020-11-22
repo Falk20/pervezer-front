@@ -55,11 +55,5 @@ export default {
       ],
     };
   },
-
-  computed: {
-    tabsLabels() {
-      return this.tabs.map((tab) => tab.label);
-    },
-  },
 };
 </script>

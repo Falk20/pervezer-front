@@ -10,7 +10,7 @@
 import TabsMenu from "@/components/TabsMenu";
 
 export default {
-  name: "client",
+  name: "finance",
 
   components: {
     TabsMenu,
@@ -21,16 +21,8 @@ export default {
       tab: null,
       tabs: [
         {
-          label: "Клиенты",
-          to: "/client",
-        },
-        {
-          label: "Профили",
-          to: "/client/profile",
-        },
-        {
-          label: "Гость",
-          to: "/client/guest",
+          label: "Финансы",
+          to: "/finance",
         },
       ],
     };

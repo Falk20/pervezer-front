@@ -89,6 +89,18 @@ const routes = [
     ],
   },
   {
+    path: "/finance",
+    component: () => import("@/views/Finance"),
+
+    beforeEnter: ifAuthenticated,
+    children: [
+      {
+        path: "",
+        component: () => import("@/components/Finance"),
+      },
+    ],
+  },
+  {
     path: "/login",
     name: "Login",
     component: () =>
