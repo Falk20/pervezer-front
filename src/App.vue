@@ -40,14 +40,18 @@ export default {
       menuItems: [
         {
           route: { name: "Home" },
-          label: "Главная"
+          label: "Главная",
         },
         {
           route: { path: "/client" },
-          label: "Клиент"
-        }
-      ]
+          label: "Клиент",
+        },
+        {
+          route: { path: "/finance" },
+          label: "Финансы",
+        },
+      ],
     };
-  }
+  },
 };
 </script>

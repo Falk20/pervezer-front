@@ -14,7 +14,7 @@
       </v-card-title>
       <v-data-table
         :headers="tableHeaders"
-        :items="guests"
+        :items="payments"
         :search="search"
         item-key="id"
         :loading="isLoad"
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { GET_GUESTS } from "@/api";
+import { GET_PAYMENTS } from "@/api";
 import Axios from "axios";
 
 export default {
@@ -36,30 +36,46 @@ export default {
       search: "",
       isLoad: true,
       isErr: false,
-      guests: [],
+      payments: [],
       tableHeaders: [
         {
-          text: "ID",
+          text: "Код платежа",
           value: "id",
         },
         {
-          text: "Наценка",
-          value: "profile.surCharge",
+          text: "Дата платежа",
+          value: "paymentDate",
         },
         {
-          text: "IP",
-          value: "ip",
+          text: "Клиент",
+          value: "client",
+        },
+        {
+          text: "Код заказа",
+          value: "orderId",
+        },
+        {
+          text: "Сумма, руб",
+          value: "amount",
+        },
+        {
+          text: "Плательщик",
+          value: "payer",
+        },
+        {
+          text: "Комментарий",
+          value: "comment",
         },
       ],
     };
   },
 
   methods: {
-    async getGuests() {
+    async getPayments() {
       try {
-        const { data: guests } = await Axios.get(GET_GUESTS);
+        const { data: payments } = await Axios.get(GET_PAYMENTS);
 
-        this.guests = guests;
+        this.payments = payments;
       } catch {
         this.isErr = true;
       } finally {
@@ -69,7 +85,7 @@ export default {
   },
 
   created() {
-    this.getGuests();
+    this.getPayments();
   },
 };
 </script>

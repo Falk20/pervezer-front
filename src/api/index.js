@@ -45,3 +45,5 @@ export const CREATE_CONTRACT = addIP("Contract/create-contract");
 
 export const CREATE_DISCOUNT = addIP("Discount/create-discount");
 export const REMOVE_DISCOUNT = addIP("Discount/remove-discount");
+
+export const GET_PAYMENTS = addIP("Payment/get-all-payments");
