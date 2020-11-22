@@ -70,6 +70,27 @@
         </v-row>
         <v-row>
           <v-col>
+            <v-select
+              v-model="inputs.officeId"
+              :items="offices"
+              item-text="office"
+              item-value="id"
+              label="Офис"
+              :rules="[rules.required]"
+            />
+          </v-col>
+          <v-col>
+            <v-switch
+              v-model="inputs.urfacetype"
+              true-value="Юридическое лицо"
+              false-value="Физическое лицо"
+              :label="inputs.urfacetype"
+              color="info"
+            ></v-switch>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
             <v-btn
               width="100%"
               type="submit"
@@ -100,7 +121,12 @@
 
 <script>
 import Axios from "axios";
-import { CREATE_CLIENT, GET_PROFILES_TO_UPDATE, GET_MANAGERS } from "@/api";
+import {
+  CREATE_CLIENT,
+  GET_PROFILES_TO_UPDATE,
+  GET_MANAGERS,
+  GET_OFFICES,
+} from "@/api";
 
 export default {
   name: "client-detail-requisite-create-form",
@@ -111,6 +137,7 @@ export default {
 
       profiles: [],
       managers: [],
+      offices: [],
 
       inputs: {
         name: "",
@@ -119,10 +146,13 @@ export default {
         phone: "",
         currentProfileId: "",
         managerId: "",
+        officeId: "",
+        urfacetype: "Физическое лицо",
       },
 
       isNotProfiles: false,
       isNotManagers: false,
+      isNotOffices: false,
       sending: false,
       isErr: false,
       rules: {
@@ -160,6 +190,16 @@ export default {
       }
     },
 
+    async getOffices() {
+      try {
+        const { data: offices } = await Axios.get(GET_OFFICES);
+
+        this.offices = offices;
+      } catch {
+        this.isNotOffices = true;
+      }
+    },
+
     async saveNewClient() {
       try {
         this.$refs.form.validate();
@@ -193,6 +233,7 @@ export default {
   created() {
     this.getProfiles();
     this.getManagers();
+    this.getOffices();
   },
 };
 </script>
