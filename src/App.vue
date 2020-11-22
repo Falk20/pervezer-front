@@ -53,5 +53,11 @@ export default {
       ],
     };
   },
+
+  watch: {
+    $route() {
+      this.drawer = false;
+    },
+  },
 };
 </script>
