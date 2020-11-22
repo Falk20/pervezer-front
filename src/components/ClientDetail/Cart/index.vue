@@ -119,6 +119,10 @@ export default {
           value: "totalRealCost",
         },
         {
+          text: "Срок доставки",
+          value: "deliveryDuration",
+        },
+        {
           text: "",
           value: "remove",
           sortable: false,
