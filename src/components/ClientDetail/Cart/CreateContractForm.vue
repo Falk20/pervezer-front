@@ -89,7 +89,9 @@ export default {
   methods: {
     async getRequisites() {
       try {
-        const { data: requisites } = await Axios.get(GET_CLIENT_REQUISITES, {
+        const {
+          data: { rekvizits: requisites },
+        } = await Axios.get(GET_CLIENT_REQUISITES, {
           params: {
             id: this.$route.params.clientID,
           },
