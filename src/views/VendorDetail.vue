@@ -32,6 +32,10 @@ export default {
           label: "Склады",
           to: `/vendor-detail/${this.$route.params.vendorID}/warehouse`,
         },
+        {
+          label: "Настройки прайслиста",
+          to: `/vendor-detail/${this.$route.params.vendorID}/pricelist-setting`,
+        },
       ],
     };
   },

@@ -58,3 +58,6 @@ export const GET_ORDERS = addIP("Order/get-orders");
 export const GET_PRICELIST = addIP("Vendor/get-vendor-priselist");
 export const GET_WAREHOUSES = addIP("Vendor/get-vendor-wareouses");
 export const CREATE_WAREHOUSE = addIP("Vendor/create-wareouse");
+
+export const GET_VENDOR_COL_SETTING = addIP("Vendor/get-vendor-colsettings");
+export const UPD_VENDOR_COL_SETTING = addIP("Vendor/update-vendor-colsettings");
