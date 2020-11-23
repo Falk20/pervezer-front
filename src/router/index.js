@@ -93,6 +93,18 @@ const routes = [
     ],
   },
   {
+    path: "/vendor-detail/:vendorID",
+    component: () => import("@/views/VendorDetail"),
+
+    beforeEnter: ifAuthenticated,
+    children: [
+      {
+        path: "",
+        component: () => import("@/components/VendorDetail/MainSetting"),
+      },
+    ],
+  },
+  {
     path: "/finance",
     component: () => import("@/views/Finance"),
 
