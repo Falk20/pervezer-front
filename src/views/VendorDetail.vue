@@ -28,6 +28,10 @@ export default {
           label: "Прайслист",
           to: `/vendor-detail/${this.$route.params.vendorID}/pricelist`,
         },
+        {
+          label: "Склады",
+          to: `/vendor-detail/${this.$route.params.vendorID}/warehouse`,
+        },
       ],
     };
   },

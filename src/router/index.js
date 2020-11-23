@@ -106,6 +106,10 @@ const routes = [
         path: "pricelist",
         component: () => import("@/components/VendorDetail/Pricelist"),
       },
+      {
+        path: "warehouse",
+        component: () => import("@/components/VendorDetail/Warehouse"),
+      },
     ],
   },
   {

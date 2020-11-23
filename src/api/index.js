@@ -56,3 +56,5 @@ export const GET_CLIENT_ORDERS = addIP("Client/get-client-orders");
 export const GET_ORDERS = addIP("Order/get-orders");
 
 export const GET_PRICELIST = addIP("Vendor/get-vendor-priselist");
+export const GET_WAREHOUSES = addIP("Vendor/get-vendor-wareouses");
+export const CREATE_WAREHOUSE = addIP("Vendor/create-wareouse");
