@@ -129,6 +129,18 @@ const routes = [
     ],
   },
   {
+    path: "/cross",
+    component: () => import("@/views/Cross"),
+
+    beforeEnter: ifAuthenticated,
+    children: [
+      {
+        path: "",
+        component: () => import("@/components/Cross"),
+      },
+    ],
+  },
+  {
     path: "/order",
     component: () => import("@/views/Order"),
 

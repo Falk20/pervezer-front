@@ -58,6 +58,10 @@ export default {
           route: { path: "/vendor" },
           label: "Поставщики",
         },
+        {
+          route: { path: "/cross" },
+          label: "Кросс",
+        },
       ],
     };
   },

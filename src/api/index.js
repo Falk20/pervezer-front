@@ -64,3 +64,5 @@ export const UPD_VENDOR_COL_SETTING = addIP("Vendor/update-vendor-colsettings");
 
 export const GET_NEW_PRICELIST = addIP("Vendor/get-vendor-new-priselist");
 export const UPD_NEW_PRICELIST = addIP("Vendor/update-vendor-new-priselist");
+
+export const GET_CROSSES = addIP("Cross/get-crosses");
