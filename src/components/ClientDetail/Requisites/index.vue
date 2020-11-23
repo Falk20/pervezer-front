@@ -42,6 +42,7 @@
           <CreateRequisiteForm
             @create-requisite="addNewRequisite"
             @close="dialog = false"
+            :isUrFace="isUrFace"
           />
         </v-dialog>
       </template>
@@ -69,41 +70,68 @@ export default {
       isErr: false,
       dialog: false,
       requisites: [],
-      tableHeaders: [
-        {
-          text: "Клиентский счет",
-          value: "kaccount",
-        },
-        {
-          text: "Расчетный счет",
-          value: "raccount",
-        },
-        {
-          text: "Название банка",
-          value: "bankName",
-        },
-        {
-          text: "БИК банка",
-          value: "bankBIC",
-        },
-        {
-          text: "",
-          value: "id",
-          sortable: false,
-        },
-      ],
+      isUrFace: false,
     };
+  },
+
+  computed: {
+    tableHeaders() {
+      if (this.isUrFace) {
+        return [
+          {
+            text: "Клиентский счет",
+            value: "kaccount",
+          },
+          {
+            text: "Расчетный счет",
+            value: "raccount",
+          },
+          {
+            text: "Название банка",
+            value: "bankName",
+          },
+          {
+            text: "БИК банка",
+            value: "bankBIC",
+          },
+          {
+            text: "",
+            value: "id",
+            sortable: false,
+          },
+        ];
+      } else {
+        return [
+          {
+            text: "Клиентский счет",
+            value: "kaccount",
+          },
+          {
+            text: "Название банка",
+            value: "bankName",
+          },
+          {
+            text: "",
+            value: "id",
+            sortable: false,
+          },
+        ];
+      }
+    },
   },
 
   methods: {
     async getRequisites() {
       try {
-        const { data: requisites } = await Axios.get(GET_CLIENT_REQUISITES, {
+        const {
+          data: { rekvizits: requisites, isUrFace },
+        } = await Axios.get(GET_CLIENT_REQUISITES, {
           params: {
             id: this.$route.params.clientID,
           },
         });
 
+        this.isUrFace = isUrFace;
         this.requisites = requisites;
       } catch {
         this.isErr = true;

@@ -18,7 +18,7 @@
               counter="18"
             />
           </v-col>
-          <v-col>
+          <v-col v-if="isUrFace">
             <v-text-field
               v-model="inputs.raccount"
               label="Расчетный счет"
@@ -35,7 +35,7 @@
               :rules="[rules.required]"
             />
           </v-col>
-          <v-col>
+          <v-col v-if="isUrFace">
             <v-text-field
               v-model="inputs.bankBIC"
               label="БИК банка"
@@ -76,10 +76,12 @@
 
 <script>
 import Axios from "axios";
-import { CREATE_REQUISITE } from "@/api";
+import { CREATE_FIZ_REQUISITE, CREATE_UR_REQUISITE } from "@/api";
 
 export default {
   name: "client-detail-requisite-create-form",
+
+  props: ["isUrFace"],
 
   data() {
     return {
@@ -107,6 +109,12 @@ export default {
     };
   },
 
+  computed: {
+    currApi() {
+      return this.isUrFace ? CREATE_UR_REQUISITE : CREATE_FIZ_REQUISITE;
+    },
+  },
+
   methods: {
     async saveNewRequisite() {
       try {
@@ -115,10 +123,18 @@ export default {
         if (this.isValid) {
           this.sending = true;
 
-          const { status } = await Axios.post(CREATE_REQUISITE, {
-            ...this.inputs,
+          let body = {
+            kaccount: this.inputs.kaccount,
+            bankName: this.inputs.bankName,
             clientId: this.$route.params.clientID,
-          });
+          };
+
+          if (this.isUrFace) {
+            body.raccount = this.inputs.raccount;
+            body.bankBIC = this.inputs.bankBIC;
+          }
+
+          const { status } = await Axios.post(this.currApi, body);
 
           if (status === 200) {
             this.$emit("create-requisite");
