@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Новый клиент</v-card-title>
+    <v-card-title>Новый поставщик</v-card-title>
 
     <v-form
       ref="form"
@@ -12,9 +12,9 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="inputs.name"
+              v-model="inputs.uRname"
               :rules="[rules.required]"
-              label="ФИО"
+              label="Юр. имя"
               required
             />
           </v-col>
@@ -48,45 +48,31 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-select
-              v-model="inputs.currentProfileId"
-              :items="profiles"
-              item-text="name"
-              item-value="profileId"
-              label="Профиль"
+            <v-text-field
+              v-model="inputs.uRaddress"
               :rules="[rules.required]"
-            />
-          </v-col>
-          <v-col>
-            <v-select
-              v-model="inputs.managerId"
-              :items="managers"
-              item-text="fio"
-              item-value="id"
-              label="Менеджер"
-              :rules="[rules.required]"
+              label="Юр. адрес"
+              required
             />
           </v-col>
         </v-row>
         <v-row>
           <v-col>
-            <v-select
-              v-model="inputs.officeId"
-              :items="offices"
-              item-text="office"
-              item-value="id"
-              label="Офис"
-              :rules="[rules.required]"
+            <v-text-field
+              v-model="inputs.inn"
+              :rules="[rules.required, rules.inn]"
+              label="ИНН"
+              required
+              counter
             />
           </v-col>
           <v-col>
-            <v-switch
-              v-model="inputs.urfacetype"
-              true-value="Юридическое лицо"
-              false-value="Физическое лицо"
-              :label="inputs.urfacetype"
-              color="info"
-            ></v-switch>
+            <v-text-field
+              v-model="inputs.kpp"
+              :rules="[rules.required]"
+              label="КПП"
+              required
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -113,7 +99,7 @@
         dismissible
         transition="scale-transition"
       >
-        Не удалось добавить клиента
+        Не удалось добавить поставщика
       </v-alert>
     </v-form>
   </v-card>
@@ -121,15 +107,10 @@
 
 <script>
 import Axios from "axios";
-import {
-  CREATE_VENDOR,
-  GET_PROFILES_TO_UPDATE,
-  GET_MANAGERS,
-  GET_OFFICES,
-} from "@/api";
+import { CREATE_VENDOR } from "@/api";
 
 export default {
-  name: "vendor-detail-requisite-create-form",
+  name: "vendor-create-form",
 
   data() {
     return {
@@ -140,14 +121,13 @@ export default {
       offices: [],
 
       inputs: {
-        name: "",
+        uRname: "",
         city: "",
         email: "",
         phone: "",
-        currentProfileId: "",
-        managerId: "",
-        officeId: "",
-        urfacetype: "Физическое лицо",
+        uRaddress: "",
+        inn: "",
+        kpp: "",
       },
 
       isNotProfiles: false,
@@ -165,41 +145,15 @@ export default {
           const pattern = /^((8|\+7)[- ]?)?(\(?\d{3}\)?[- ]?)?[\d\- ]{5,10}$/;
           return pattern.test(value) || "Телефон невалиден";
         },
+        inn: (value) => {
+          const pattern = /^[\d+]{10,12}$/;
+          return pattern.test(value) || "от 10 до 12 цифр";
+        },
       },
     };
   },
 
   methods: {
-    async getProfiles() {
-      try {
-        const { data: profiles } = await Axios.get(GET_PROFILES_TO_UPDATE);
-
-        this.profiles = profiles;
-      } catch {
-        this.isNotProfiles = true;
-      }
-    },
-
-    async getManagers() {
-      try {
-        const { data: managers } = await Axios.get(GET_MANAGERS);
-
-        this.managers = managers;
-      } catch {
-        this.isNotManagers = true;
-      }
-    },
-
-    async getOffices() {
-      try {
-        const { data: offices } = await Axios.get(GET_OFFICES);
-
-        this.offices = offices;
-      } catch {
-        this.isNotOffices = true;
-      }
-    },
-
     async saveNewVendor() {
       try {
         this.$refs.form.validate();
@@ -228,12 +182,6 @@ export default {
       }
       this.$refs.form.resetValidation();
     },
-  },
-
-  created() {
-    this.getProfiles();
-    this.getManagers();
-    this.getOffices();
   },
 };
 </script>

@@ -7,8 +7,8 @@ function addIP(url) {
 export const AUTH = addIP("Auth/authorization");
 export const GET_CLIENTS = addIP("Client/get-clients");
 export const CREATE_CLIENT = addIP("Client/create-client");
-export const GET_VENDORSS = addIP("Client/get-clients");
-export const CREATE_VENDOR = addIP("Client/create-client");
+export const GET_VENDORS = addIP("Vendor/get-vendors");
+export const CREATE_VENDOR = addIP("Vendor/create-vendor");
 export const GET_MANAGERS = addIP("Manager/get-managers");
 export const GET_CLIENT_SETTINGS = addIP("Client/get-client-settings");
 export const GET_CLIENT_DETAILS = addIP("Client/get-client-details");

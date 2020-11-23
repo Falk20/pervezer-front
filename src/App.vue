@@ -54,6 +54,10 @@ export default {
           route: { path: "/order" },
           label: "Заказы",
         },
+        {
+          route: { path: "/vendor" },
+          label: "Поставщики",
+        },
       ],
     };
   },
