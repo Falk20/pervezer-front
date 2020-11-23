@@ -105,6 +105,18 @@ const routes = [
     ],
   },
   {
+    path: "/order",
+    component: () => import("@/views/Order"),
+
+    beforeEnter: ifAuthenticated,
+    children: [
+      {
+        path: "",
+        component: () => import("@/components/Order"),
+      },
+    ],
+  },
+  {
     path: "/login",
     name: "Login",
     component: () =>

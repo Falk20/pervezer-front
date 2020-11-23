@@ -50,6 +50,10 @@ export default {
           route: { path: "/finance" },
           label: "Финансы",
         },
+        {
+          route: { path: "/order" },
+          label: "Заказы",
+        },
       ],
     };
   },
