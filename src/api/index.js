@@ -54,3 +54,5 @@ export const GET_PAYMENTS = addIP("Payment/get-all-payments");
 
 export const GET_CLIENT_ORDERS = addIP("Client/get-client-orders");
 export const GET_ORDERS = addIP("Order/get-orders");
+
+export const GET_PRICELIST = addIP("Vendor/get-vendor-priselist");
