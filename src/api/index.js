@@ -61,3 +61,6 @@ export const CREATE_WAREHOUSE = addIP("Vendor/create-wareouse");
 
 export const GET_VENDOR_COL_SETTING = addIP("Vendor/get-vendor-colsettings");
 export const UPD_VENDOR_COL_SETTING = addIP("Vendor/update-vendor-colsettings");
+
+export const GET_NEW_PRICELIST = addIP("Vendor/get-vendor-new-priselist");
+export const UPD_NEW_PRICELIST = addIP("Vendor/update-vendor-new-priselist");

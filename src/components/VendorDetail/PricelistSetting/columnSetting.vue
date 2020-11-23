@@ -1,5 +1,5 @@
 <template>
-  <v-card width="100%">
+  <v-card width="100%" class="mb-6">
     <v-form ref="form" @submit.prevent="updColSettings" v-model="isValid">
       <v-container fluid>
         <v-row>
