@@ -117,6 +117,18 @@ const routes = [
     ],
   },
   {
+    path: "/vendor",
+    component: () => import("@/views/Vendor"),
+
+    beforeEnter: ifAuthenticated,
+    children: [
+      {
+        path: "",
+        component: () => import("@/components/Vendor"),
+      },
+    ],
+  },
+  {
     path: "/login",
     name: "Login",
     component: () =>
