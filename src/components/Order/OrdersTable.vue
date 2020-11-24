@@ -25,7 +25,6 @@
           <td class="no-padding" :colspan="headers.length">
             <OrdersProductTable 
             :products="item.products"
-            @update-list="getOrders"
             />
           </td>
         </template>
@@ -60,6 +59,11 @@ export default {
           width: "150px",
         },
         {
+          text: "Клиент",
+          value: "client",
+          width: "100px",
+        },
+        {
           text: "Менеджер",
           value: "manager",
           width: "100px",
@@ -90,8 +94,13 @@ export default {
           width: "50px",
         },
         {
-          text: "Стоимость",
+          text: "Стоимость клиента",
           value: "totalRealPrise",
+          width: "50px",
+        },
+        {
+          text: "Стоимость поставщика",
+          value: "totalVendorPrise",
           width: "50px",
         },
         {

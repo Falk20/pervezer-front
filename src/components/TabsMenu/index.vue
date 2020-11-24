@@ -1,6 +1,6 @@
 <template>
-  <v-tabs v-model="tab" fixed-tabs background-color="primary" dark>
-    <v-tabs-slider color="yellow"></v-tabs-slider>
+  <v-tabs v-model="tab" fixed-tabs background-color="#d60600" dark>
+    <v-tabs-slider color="#404040"></v-tabs-slider>
 
     <v-tab v-for="(item, i) in tabs" :key="i" exact :to="item.to">
       {{ item.label }}

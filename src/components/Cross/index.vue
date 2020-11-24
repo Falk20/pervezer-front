@@ -49,10 +49,10 @@ export default {
       crosses: [],
 
       tableHeaders: [
-        { text: "Артикул", value: "article" },
-        { text: "Модель", value: "model" },
-        { text: "Цена", value: "price" },
-        { text: "Код", value: "code" },
+        { text: "Артикул", value: "code" },
+        { text: "Бренд", value: "brand" },
+        { text: "Описание", value: "model" },
+        { text: "Код кросса", value: "cross" },
       ],
 
       rules: {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import OrdersTable from "@/components/ClientDetail/Orders/OrdersTable";
+import OrdersTable from "@/components/Order/OrdersTable";
 import { GET_ORDERS } from "@/api";
 
 export default {

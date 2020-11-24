@@ -25,6 +25,10 @@ export default {
           to: `/vendor-detail/${this.$route.params.vendorID}`,
         },
         {
+          label: "Заказы",
+          to: `/vendor-detail/${this.$route.params.vendorID}/orders`,
+        },
+        {
           label: "Прайслист",
           to: `/vendor-detail/${this.$route.params.vendorID}/pricelist`,
         },

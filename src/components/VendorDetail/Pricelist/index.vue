@@ -51,10 +51,6 @@ export default {
           value: "brand",
         },
         {
-          text: "Описание",
-          value: "desc",
-        },
-        {
           text: "Цена, руб",
           value: "vendorPrice",
         },

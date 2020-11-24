@@ -54,6 +54,7 @@ export const GET_PAYMENTS = addIP("Payment/get-all-payments");
 
 export const GET_CLIENT_ORDERS = addIP("Client/get-client-orders");
 export const GET_ORDERS = addIP("Order/get-orders");
+export const GET_VENDOR_ORDERS = addIP("Vendor/get-vendor-orders");
 
 export const GET_PRICELIST = addIP("Vendor/get-vendor-priselist");
 export const GET_WAREHOUSES = addIP("Vendor/get-vendor-wareouses");
@@ -66,3 +67,9 @@ export const GET_NEW_PRICELIST = addIP("Vendor/get-vendor-new-priselist");
 export const UPD_NEW_PRICELIST = addIP("Vendor/update-vendor-new-priselist");
 
 export const GET_CROSSES = addIP("Cross/get-crosses");
+
+export const ACCEPT_ORDER = addIP("Order/accept-order");
+export const REJECT_ORDER = addIP("Order/reject-order");
+export const PAY_ORDER = addIP("Order/pay-order");
+export const SEND_ORDER = addIP("Order/send-order");
+export const CLOSE_ORDER = addIP("Order/close-order");

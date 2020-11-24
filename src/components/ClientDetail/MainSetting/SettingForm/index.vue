@@ -92,7 +92,7 @@
           <v-switch
             v-model="editedSetting.allowSMS"
             label="Уведомления"
-            color="info"
+            color="#d60600"
             hide-details
           ></v-switch>
         </v-col>

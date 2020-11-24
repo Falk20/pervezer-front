@@ -7,10 +7,38 @@
     hide-default-footer
     disable-sort
     class="order-products"
-  />
+  >
+  <template v-slot:item.changeStatus="{ item }">
+        <v-row v-if="item.status === 'Обрабатывается'" disabled>
+          <v-btn color="primary" class="mb-2" disabled>
+              <span>Оплатить</span>
+            </v-btn>
+        </v-row>
+        <v-row v-if="item.status === 'Ожидает оплаты'">
+          <v-btn  color="primary" dark class="mb-1 mt-1" @click="payOrder(item.id)">
+          <span>Оплатить</span>
+        </v-btn>
+        <v-btn  color="red" dark class="mb-1 mt-1" @click="rejectOrder(item.id)">
+          <span>Отменить</span>
+        </v-btn>
+        </v-row>
+        <v-row v-if="item.status === 'Оплачен'">
+        <v-btn color="primary" class="mb-1 mt-1" disabled>
+          <span>Получить</span>
+        </v-btn>
+        </v-row>
+        <v-row v-if="item.status === 'Доставляется'">
+        <v-btn color="primary" dark class="mb-1 mt-1" @click="closeOrder(item.id)">
+          <span>Получить</span>
+        </v-btn>
+        </v-row>
+  </template>
+  </v-data-table>
 </template>
 
 <script>
+import { PAY_ORDER, CLOSE_ORDER, REJECT_ORDER } from "@/api";
+import Axios from "axios";
 export default {
   name: "orders-product-table",
 
@@ -21,13 +49,8 @@ export default {
       tableHeaders: [
         {
           text: "Код заказа",
-          value: "id",
-          width: "150px",
-        },
-        {
-          text: "Клиент",
-          value: "client",
-          width: "100px",
+          value: "changeStatus",
+          width: "280px",
         },
         {
           text: "Менеджер",
@@ -60,13 +83,8 @@ export default {
           width: "50px",
         },
         {
-          text: "Стоимость клиента",
+          text: "Стоимость",
           value: "totalRealPrise",
-          width: "50px",
-        },
-        {
-          text: "Стоимость поставщика",
-          value: "totalVendorPrise",
           width: "50px",
         },
         {
@@ -77,7 +95,33 @@ export default {
       ],
     };
   },
-
+	methods:{
+    async payOrder(item) {
+          const {status} = await Axios.post(PAY_ORDER, {
+            orderProductId: item,
+          });
+          if (status === 200) {
+            this.$emit("update-list");
+          }
+    },
+    async rejectOrder(item) {
+          const {status} = await Axios.post(REJECT_ORDER, {
+            orderProductId: item,
+          });
+          if (status === 200) {
+            this.$emit("update-list");
+          }
+    },
+    async closeOrder(item) {
+          const {status} = await Axios.post(CLOSE_ORDER, {
+            orderProductId: item,
+          });
+          if (status === 200) {
+            this.$emit("update-list");
+          }
+    },
+    
+  },
   computed: {
     productsWithUniqueKey() {
       return this.products.map((item, i) => {
