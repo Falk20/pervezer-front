@@ -73,3 +73,7 @@ export const REJECT_ORDER = addIP("Order/reject-order");
 export const PAY_ORDER = addIP("Order/pay-order");
 export const SEND_ORDER = addIP("Order/send-order");
 export const CLOSE_ORDER = addIP("Order/close-order");
+
+export const GET_BRANDS = addIP("Vendor/get-vendor-rejectbrends");
+export const REMOVE_BRAND = addIP("Rejectbrand/remove-rejectbrand");
+export const ADD_BRAND = addIP("Rejectbrand/create-rejectbrand");
