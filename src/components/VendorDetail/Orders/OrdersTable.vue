@@ -23,24 +23,20 @@
           <v-btn color="primary" dark class="mb-1 mt-1" @click="acceptOrder(item.id)">
               <span>Принять</span>
             </v-btn>
+          <v-btn color="red" dark class="mb-1 mt-1" @click="rejectOrder(item.id)">
+            <span>Отменить</span>
+          </v-btn>
         </v-row>
         
         <v-row v-if="item.status === 'Ожидает оплаты'">
           <v-btn color="primary" class="mb-1 mt-1" disabled>
           <span>Отправить</span>
         </v-btn>
-
-        <v-btn  color="red" class="mb-1 mt-1" disabled>
-          <span>Отменить</span>
-        </v-btn>
         </v-row>
         <v-row v-if="item.status === 'Оплачен'">
           <v-btn color="primary"  dark class="mb-1 mt-1" @click="sendOrder(item.id)">
           <span>Отправить</span>
         </v-btn>
-          <v-btn color="red" dark class="mb-1 mt-1" @click="rejectOrder(item.id)">
-          <span>Отменить</span>
-          </v-btn>
         </v-row>
         </template>
       </v-data-table>

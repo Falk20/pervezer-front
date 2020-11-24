@@ -65,11 +65,6 @@ export default {
           width: "100px",
         },
         {
-          text: "Поставщик",
-          value: "vendor",
-          width: "100px",
-        },
-        {
           text: "Код товара",
           value: "productId",
           width: "100px",

@@ -55,16 +55,8 @@ export default {
           value: "vendorPrice",
         },
         {
-          text: "Срок доставки",
-          value: "deliveryDuration",
-        },
-        {
           text: "Кол-во",
           value: "count",
-        },
-        {
-          text: "Склад",
-          value: "wareouse",
         },
       ],
     };
