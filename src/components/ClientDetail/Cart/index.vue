@@ -16,9 +16,12 @@
       <v-data-table
         :headers="tableHeaders"
         :items="cartItems"
-        item-key="id"
+        item-key="cartItemId"
         :search="search"
         :loading="isLoad"
+        :single-select="false"
+        show-select
+        v-model="productsToOrder"
       >
         <template v-slot:no-data>Нет товаров в корзине</template>
         <template v-slot:no-results>Нет таких товаров в корзине</template>
@@ -47,7 +50,13 @@
         <v-dialog v-model="contractDialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
             <div class="text-center pt-2">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
+              <v-btn
+                color="primary"
+                class="mb-2"
+                :disabled="!productsToOrder.length"
+                v-bind="attrs"
+                v-on="on"
+              >
                 Создать заказ
               </v-btn>
             </div>
@@ -55,6 +64,7 @@
           <CreateContractForm
             @create-contract="updateTable"
             @close="contractDialog = false"
+            :productsToOrder="productsToOrder"
           />
         </v-dialog>
       </template>
@@ -85,6 +95,7 @@ export default {
       dialog: false,
       contractDialog: false,
       cartItems: [],
+      productsToOrder: [],
       tableHeaders: [
         {
           text: "ID",

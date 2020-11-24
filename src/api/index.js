@@ -45,7 +45,7 @@ export const GET_CLIENT_CART = addIP("Client/get-client-cart");
 export const REMOVE_CART_ITEM = addIP("Cart/remove-cart-item");
 export const CREATE_CART_ITEM = addIP("Cart/create-cart-item");
 export const GET_PRODUCTS = addIP("Product/get-products");
-export const CREATE_CONTRACT = addIP("Contract/create-contract");
+export const CREATE_CONTRACT = addIP("Order/create-order");
 
 export const CREATE_DISCOUNT = addIP("Discount/create-discount");
 export const REMOVE_DISCOUNT = addIP("Discount/remove-discount");

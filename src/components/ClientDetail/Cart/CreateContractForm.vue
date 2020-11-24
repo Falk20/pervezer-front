@@ -12,7 +12,7 @@
         <v-row>
           <v-col>
             <v-select
-              v-model="inputs.clientRekvizitId"
+              v-model="inputs.rekvizitId"
               :items="requisites"
               item-text="kaccount"
               item-value="id"
@@ -68,6 +68,8 @@ import { GET_CLIENT_REQUISITES, CREATE_CONTRACT } from "@/api";
 export default {
   name: "client-detail-create-contract-form",
 
+  props: ["productsToOrder"],
+
   data() {
     return {
       isValid: true,
@@ -75,7 +77,7 @@ export default {
       requisites: [],
 
       inputs: {
-        clientRekvizitId: "",
+        rekvizitId: "",
       },
       sending: false,
       isErr: false,
@@ -84,6 +86,14 @@ export default {
         required: (v) => !!v || "Обязательное поле",
       },
     };
+  },
+
+  computed: {
+    mappedProducts() {
+      return this.productsToOrder.map((product) => ({
+        cartProductId: product.cartItemId,
+      }));
+    },
   },
 
   methods: {
@@ -113,6 +123,7 @@ export default {
           const { status } = await Axios.post(CREATE_CONTRACT, {
             ...this.inputs,
             clientId: this.$route.params.clientID,
+            productsToOrder: this.mappedProducts,
           });
 
           if (status === 200) {
