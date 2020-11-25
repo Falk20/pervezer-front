@@ -4,52 +4,33 @@
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-left">Бренд</th>
-            <th class="text-left">Артикул</th>
-            <th class="text-left">Наименование</th>
-            <th class="text-left">Цена</th>
-            <th class="text-left">Количество</th>
-            <th class="text-left">Кратность</th>
-            <th class="text-left">Код</th>
+            <th class="text-left">Колонка 0</th>
+            <th class="text-left">Колонка 1</th>
+            <th class="text-left">Колонка 2</th>
+            <th class="text-left">Колонка 3</th>
+            <th class="text-left">Колонка 4</th>
+            <th class="text-left">Колонка 5</th>
+            <th class="text-left">Колонка 6</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="item in pricelist" :key="item.name">
-            <td>{{ item.brand }}</td>
-            <td>{{ item.article }}</td>
-            <td>{{ item.model }}</td>
-            <td>{{ item.vendorPrice }}</td>
-            <td>{{ item.count }}</td>
-            <td>{{ item.multiple }}</td>
-            <td>{{ item.code }}</td>
+            <td>{{ item.col1 }}</td>
+            <td>{{ item.col2 }}</td>
+            <td>{{ item.col3 }}</td>
+            <td>{{ item.col4 }}</td>
+            <td>{{ item.col5 }}</td>
+            <td>{{ item.col6 }}</td>
+            <td>{{ item.col7 }}</td>
           </tr>
         </tbody>
       </template>
     </v-simple-table>
-    <v-container>
-      <v-row>
-        <v-col>
-          <v-btn
-            width="100%"
-            type="button"
-            color="primary"
-            @click="updPricelist(true)"
-          >
-            Принять
-          </v-btn>
-        </v-col>
-        <v-col>
-          <v-btn width="100%" type="button" @click="updPricelist(false)"
-            >Отклонить</v-btn
-          >
-        </v-col>
-      </v-row>
-    </v-container>
   </v-card>
 </template>
 
 <script>
-import { GET_NEW_PRICELIST, UPD_NEW_PRICELIST } from "@/api";
+import { GET_NEW_PRICELIST } from "@/api";
 import Axios from "axios";
 
 export default {
@@ -58,6 +39,7 @@ export default {
   data() {
     return {
       pricelist: [],
+      head:[]
     };
   },
 
@@ -79,20 +61,6 @@ export default {
         this.pricelist = pricelist;
       } catch {
         alert("Не удалось загрузить новый прайслист");
-      }
-    },
-    async updPricelist(isAccepted) {
-      try {
-        let { status } = await Axios.post(UPD_NEW_PRICELIST, {
-          vendorId: this.vendorID,
-          isAccepted: isAccepted,
-        });
-
-        if (status === 200) {
-          this.getPricelist();
-        }
-      } catch {
-        alert("Не удалось отклонить/принять новый прайслист");
       }
     },
   },

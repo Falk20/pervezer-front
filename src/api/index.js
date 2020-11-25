@@ -1,4 +1,4 @@
-const serverIP = "http://pitstopshop.site:81";
+const serverIP = "http://localhost:51661";
 
 function addIP(url) {
   return `${serverIP}/api/${url}`;
