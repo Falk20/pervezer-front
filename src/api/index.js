@@ -1,4 +1,4 @@
-const serverIP = "http://localhost:51661";
+const serverIP = "http://94.242.58.230:81";
 
 function addIP(url) {
   return `${serverIP}/api/${url}`;

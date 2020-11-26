@@ -41,8 +41,8 @@
       <template v-slot:item.mobile="{ item }">
         <a :href="`tel:+${item.mobile}`">{{ item.mobile }}</a>
       </template>
-      <template v-slot:item.birthDate="{ item }">
-        {{ getCurrentDate(item.birthDate) }}
+      <template v-slot:item.registerDate="{ item }">
+        {{ getCurrentDate(item.registerDate) }}
       </template>
       <!-- <template v-slot:item.clientCard="{ item }">
           <v-btn icon @click="openClientInfo(item)">
@@ -128,7 +128,7 @@ export default {
         },
         {
           text: "Регистрация",
-          value: "birthDate",
+          value: "registerDate",
         },
         {
           text: "Ред.",

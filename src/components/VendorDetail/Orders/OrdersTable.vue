@@ -24,7 +24,7 @@
               <span>Принять</span>
             </v-btn>
           <v-btn color="red" dark class="mb-1 mt-1" @click="rejectOrder(item.id)">
-            <span>Отменить</span>
+            <span>Отклонить</span>
           </v-btn>
         </v-row>
         
@@ -86,7 +86,7 @@ export default {
           width: "100px",
         },
         {
-          text: "Стоисомть, руб",
+          text: "Стоимость, руб",
           value: "totalVendorCost",
           width: "150px",
         },
