@@ -1,16 +1,16 @@
 <template>
-  <v-card width="100%" v-if="pricelist.length">
+  <v-card width="100%" class="mt-12" v-if="pricelist.length">
     <v-simple-table>
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-left">Колонка 0</th>
             <th class="text-left">Колонка 1</th>
             <th class="text-left">Колонка 2</th>
             <th class="text-left">Колонка 3</th>
             <th class="text-left">Колонка 4</th>
             <th class="text-left">Колонка 5</th>
             <th class="text-left">Колонка 6</th>
+            <th class="text-left">Колонка 7</th>
           </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       pricelist: [],
-      head:[]
+      head: [],
     };
   },
 

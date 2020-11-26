@@ -16,6 +16,8 @@
             <v-select
               v-model="colSetting.colNumber"
               :items="colNums"
+              item-text="label"
+              item-value="value"
               label="Номер колонки"
               clearable
               :rules="[rules.required]"
@@ -71,7 +73,36 @@ export default {
     return {
       isValid: false,
       colSettings: [],
-      colNums: [0, 1, 2, 3, 4, 5, 6],
+      colNums: [
+        {
+          value: 0,
+          label: 1,
+        },
+        {
+          value: 1,
+          label: 2,
+        },
+        {
+          value: 2,
+          label: 3,
+        },
+        {
+          value: 3,
+          label: 4,
+        },
+        {
+          value: 4,
+          label: 5,
+        },
+        {
+          value: 5,
+          label: 6,
+        },
+        {
+          value: 6,
+          label: 7,
+        },
+      ],
       sending: false,
 
       isSuccess: false,

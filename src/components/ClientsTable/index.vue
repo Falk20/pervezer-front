@@ -101,6 +101,7 @@ export default {
         },
         {
           text: "Организация",
+          value: "uRfacename",
         },
         {
           text: "Email",
