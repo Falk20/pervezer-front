@@ -5,7 +5,7 @@
         v-model="selected"
         :items="profiles"
         item-text="name"
-        item-value="id"
+        item-value="profileId"
         :label="label"
       ></v-select>
     </v-col>
